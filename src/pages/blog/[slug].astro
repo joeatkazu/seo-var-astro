@@ -17,9 +17,35 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const { title, date, author, readTime, coverImage, tags } = post.data;
+const slug = post.id.replace(/\.mdx?$/, '');
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "image": coverImage,
+  "author": {
+    "@type": "Person",
+    "name": author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KeresoPartner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://keresopartner.hu/favicon.svg"
+    }
+  },
+  "datePublished": date,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://keresopartner.hu/blog/${slug}`
+  },
+  "keywords": tags.join(", ")
+};
 ---
 
-<BaseLayout title={`${title} - KeresoPartner Blog`} description={title}>
+<BaseLayout title={`${title} - KeresoPartner Blog`} description={title} schema={schema}>
   <Navbar />
 
   <div class="min-h-screen bg-[hsl(var(--background))]">

@@ -7,9 +7,51 @@ import StatsSection from "@/components/StatsSection.astro";
 import CTASection from "@/components/CTASection.astro";
 import ContactSection from "@/components/ContactSection.tsx";
 import Footer from "@/components/Footer.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://keresopartner.hu/#organization",
+      "name": "KeresoPartner",
+      "url": "https://keresopartner.hu",
+      "logo": "https://keresopartner.hu/favicon.svg",
+      "description": "SEO es AI Search optimalizalas szolgaltatasok Magyarorszagon",
+      "sameAs": []
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://keresopartner.hu/#website",
+      "url": "https://keresopartner.hu",
+      "name": "KeresoPartner",
+      "publisher": { "@id": "https://keresopartner.hu/#organization" },
+      "inLanguage": "hu-HU"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "SEO es AI Search Optimalizalas",
+      "provider": { "@id": "https://keresopartner.hu/#organization" },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Hungary"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "SEO Szolgaltatasok",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO Optimalizalas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Search Optimalizalas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Helyi SEO" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Weboldal Sebesseg Optimalizalas" } }
+        ]
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title="KeresoPartner - SEO es AI Search Optimalizalas">
+<BaseLayout title="KeresoPartner - SEO es AI Search Optimalizalas" schema={schema}>
   <Navbar />
   <HeroSection />
   <ServicesSection />

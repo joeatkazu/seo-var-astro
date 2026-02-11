@@ -5,9 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 interface Props {
   title: string;
   description?: string;
+  schema?: object | object[];
 }
 
-const { title, description = "SEO es AI Search optimalizalas, amely biztositja, hogy vallalkozasod a Google mellett a ChatGPT, Perplexity es mas AI keresokben is megjelenjen." } = Astro.props;
+const { title, description = "SEO es AI Search optimalizalas, amely biztositja, hogy vallalkozasod a Google mellett a ChatGPT, Perplexity es mas AI keresokben is megjelenjen.", schema } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,6 +29,10 @@ const { title, description = "SEO es AI Search optimalizalas, amely biztositja, 
     />
 
     <title>{title}</title>
+
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
   </head>
   <body class="min-h-screen bg-[hsl(var(--background))]">
     <slot />
