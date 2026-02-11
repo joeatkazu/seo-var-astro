@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import HeroSection from "@/components/HeroSection.astro";
+import ServicesSection from "@/components/ServicesSection.astro";
+import StatsSection from "@/components/StatsSection.astro";
+import CTASection from "@/components/CTASection.astro";
+import ContactSection from "@/components/ContactSection.tsx";
+import Footer from "@/components/Footer.astro";
+---
+
+<BaseLayout title="KeresoPartner - SEO es AI Search Optimalizalas">
+  <Navbar />
+  <HeroSection />
+  <ServicesSection />
+  <StatsSection />
+  <CTASection />
+  <ContactSection client:load />
+  <Footer />
+</BaseLayout>

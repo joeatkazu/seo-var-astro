@@ -1,0 +1,66 @@
+---
+import { Search, Brain, BarChart3, Globe, Zap, Target } from "lucide-react";
+
+const services = [
+  {
+    icon: Search,
+    title: "SEO Optimalizalas",
+    description: "Technikai SEO, tartalomstrategia es linkepites, amely valodi organikus forgalomnovekedest hoz.",
+  },
+  {
+    icon: Brain,
+    title: "AI Search Optimalizalas",
+    description: "Legyen vallalkozasod valasza ott, ahol az emberek kerdeznek: ChatGPT, Perplexity, Gemini.",
+  },
+  {
+    icon: BarChart3,
+    title: "Analitika & Riportok",
+    description: "Valos ideju adatvezrelt elemzesek, amelyek merheto uzleti eredmenyeket mutatnak.",
+  },
+  {
+    icon: Globe,
+    title: "Helyi SEO",
+    description: "Google Terkep es helyi keresesi megjelenes optimalizalas magyar piacra szabva.",
+  },
+  {
+    icon: Zap,
+    title: "Weboldal Sebesseg",
+    description: "Core Web Vitals es oldalbetoltesi sebesseg optimalizalas a jobb rangsorolasert.",
+  },
+  {
+    icon: Target,
+    title: "Versenytars Elemzes",
+    description: "Reszletes versenytars-felterkepzes es strategiai pozicionalas AI eszkozokkel.",
+  },
+];
+---
+
+<section id="szolgaltatasok" class="py-24">
+  <div class="container mx-auto px-4">
+    <div class="mx-auto mb-16 max-w-2xl text-center">
+      <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+        <span class="gradient-text">Szolgaltatasaink</span>
+      </h2>
+      <p class="text-lg text-[hsl(var(--muted-foreground))]">
+        Atfogo megoldasok a keresokban valo lathatosag maximalizalasara
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service, index) => (
+        <div
+          class="group relative rounded-xl border border-[hsl(var(--border))]/50 bg-[hsl(var(--card))] p-8 transition-all duration-300 hover:border-[hsl(var(--primary))]/30 hover:box-glow"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))] transition-colors group-hover:bg-[hsl(var(--primary))]/20">
+            <service.icon size={24} />
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{service.title}</h3>
+          <p class="text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
+            {service.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

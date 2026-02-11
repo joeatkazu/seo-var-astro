@@ -1,0 +1,39 @@
+---
+import MobileMenu from "./MobileMenu.tsx";
+
+const links = [
+  { label: "Szolgaltatasok", href: "/#szolgaltatasok" },
+  { label: "Eredmenyek", href: "/#eredmenyek" },
+  { label: "Rolunk", href: "/#rolunk" },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(var(--border))]/50 bg-[hsl(var(--background))]/80 backdrop-blur-xl">
+  <div class="container mx-auto flex h-16 items-center justify-between px-4">
+    <a href="/" class="font-[var(--font-display)] text-xl font-bold tracking-tight">
+      <span class="gradient-text">Kereso</span>
+      <span class="text-[hsl(var(--foreground))]">Partner</span>
+    </a>
+
+    <!-- Desktop -->
+    <div class="hidden items-center gap-8 md:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--primary))]"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="/#kapcsolat"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 box-glow font-[var(--font-display)] font-semibold tracking-wide"
+      >
+        Konzultacio
+      </a>
+    </div>
+
+    <!-- Mobile -->
+    <MobileMenu client:load links={links} />
+  </div>
+</nav>

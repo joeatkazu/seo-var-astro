@@ -1,0 +1,50 @@
+---
+import { ArrowRight, Sparkles } from "lucide-react";
+---
+
+<section class="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
+  <!-- Background image -->
+  <div
+    class="absolute inset-0 bg-cover bg-center opacity-30"
+    style="background-image: url('/hero-bg.jpg')"
+  >
+  </div>
+  <!-- Gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/60 via-[hsl(var(--background))]/80 to-[hsl(var(--background))]"></div>
+
+  <div class="container relative z-10 mx-auto px-4 text-center">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[hsl(var(--primary))]/30 bg-[hsl(var(--primary))]/10 px-4 py-1.5 text-sm text-[hsl(var(--primary))] animate-[fade-in-up_0.8s_ease-out_forwards]">
+        <Sparkles size={14} />
+        <span>AI-alapu keresoptimalizalas</span>
+      </div>
+
+      <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl animate-[fade-in-up_0.8s_ease-out_0.1s_forwards] opacity-0">
+        Legyen a markad{" "}
+        <span class="gradient-text text-glow">lathato</span>
+        <br />
+        az AI keresokben
+      </h1>
+
+      <p class="mx-auto mb-10 max-w-2xl text-lg text-[hsl(var(--muted-foreground))] animate-[fade-in-up_0.8s_ease-out_0.2s_forwards] opacity-0">
+        SEO es AI Search optimalizalas, amely biztositja, hogy vallalkozasod a Google mellett a ChatGPT, Perplexity es mas AI keresokben is megjelenjen.
+      </p>
+
+      <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-[fade-in-up_0.8s_ease-out_0.3s_forwards] opacity-0">
+        <a
+          href="/#kapcsolat"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-base font-medium h-11 px-8 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 box-glow font-[var(--font-display)] font-semibold tracking-wide"
+        >
+          Ingyenes audit
+          <ArrowRight size={18} />
+        </a>
+        <a
+          href="/#szolgaltatasok"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-base font-medium h-11 px-8 border border-[hsl(var(--primary))]/50 text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/10 font-[var(--font-display)] font-semibold tracking-wide"
+        >
+          Szolgaltatasaink
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
