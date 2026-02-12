@@ -1,0 +1,55 @@
+---
+const testimonials = [
+  {
+    text: "Amióta a KeresoPartnerrel dolgozunk, az organikus forgalmunk megháromszorozódott. Csapatuk szakértő, gyorsan reagál, és valóban fontos nekik a sikerünk.",
+    initials: "KP",
+    name: "Kovács Péter",
+    role: "Ügyvezető, TechStart Kft.",
+  },
+  {
+    text: "Az idei év legjobb befektetése volt. Az általuk felállított SEO kampány 48 órán belül leadeket generált. Csak ajánlani tudjuk!",
+    initials: "NM",
+    name: "Nagy Mária",
+    role: "Marketing igazgató, StyleHome",
+  },
+  {
+    text: "Profi, megbízható és eredményorientált csapat. Teljes online jelenlétünket átalakították, a felhasználói visszajelzések pedig fenomenálisak.",
+    initials: "SÁ",
+    name: "Szabó Ádám",
+    role: "Alapító, GreenLife",
+  },
+];
+---
+
+<section class="py-20">
+  <div class="container mx-auto px-4">
+    <div class="mb-16 text-center">
+      <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Amit ügyfeleink mondanak</h2>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-3">
+      {testimonials.map((t) => (
+        <div class="relative rounded-2xl border border-slate-100 bg-white p-8 shadow-sm">
+          <!-- Quote icon -->
+          <div class="absolute right-8 top-8 text-slate-200">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+          </div>
+          <p class="relative z-10 mb-6 leading-relaxed text-slate-600">
+            "{t.text}"
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-200 text-lg font-bold text-slate-500">
+              {t.initials}
+            </div>
+            <div>
+              <div class="font-bold text-slate-900">{t.name}</div>
+              <div class="text-sm text-slate-500">{t.role}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

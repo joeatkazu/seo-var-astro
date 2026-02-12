@@ -2,8 +2,11 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/Navbar.astro";
 import HeroSection from "@/components/HeroSection.astro";
+import LogoBar from "@/components/LogoBar.astro";
 import ServicesSection from "@/components/ServicesSection.astro";
+import WhyChooseUs from "@/components/WhyChooseUs.astro";
 import StatsSection from "@/components/StatsSection.astro";
+import TestimonialsSection from "@/components/TestimonialsSection.astro";
 import AboutSection from "@/components/AboutSection.astro";
 import CTASection from "@/components/CTASection.astro";
 import ContactSection from "@/components/ContactSection.tsx";
@@ -55,8 +58,11 @@ const schema = {
 <BaseLayout title="KeresoPartner - SEO es AI Search Optimalizalas" schema={schema}>
   <Navbar />
   <HeroSection />
+  <LogoBar />
   <ServicesSection />
+  <WhyChooseUs />
   <StatsSection />
+  <TestimonialsSection />
   <AboutSection />
   <CTASection />
   <ContactSection client:load />

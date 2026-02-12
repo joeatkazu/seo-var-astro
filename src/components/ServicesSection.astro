@@ -1,5 +1,14 @@
 ---
-import { Search, Brain, BarChart3, Globe, Zap, Target } from "lucide-react";
+import { Search, Brain, BarChart3, Globe, Zap, Target, ArrowRight } from "lucide-react";
+
+const accentColors = [
+  { bg: "bg-blue-50", text: "text-blue-600", hover: "hover:text-blue-700" },
+  { bg: "bg-indigo-50", text: "text-indigo-600", hover: "hover:text-indigo-700" },
+  { bg: "bg-teal-50", text: "text-teal-600", hover: "hover:text-teal-700" },
+  { bg: "bg-purple-50", text: "text-purple-600", hover: "hover:text-purple-700" },
+  { bg: "bg-orange-50", text: "text-orange-600", hover: "hover:text-orange-700" },
+  { bg: "bg-pink-50", text: "text-pink-600", hover: "hover:text-pink-700" },
+];
 
 const services = [
   {
@@ -35,32 +44,39 @@ const services = [
 ];
 ---
 
-<section id="szolgaltatasok" class="py-24">
+<section id="szolgaltatasok" class="py-20">
   <div class="container mx-auto px-4">
-    <div class="mx-auto mb-16 max-w-2xl text-center">
-      <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-        <span class="gradient-text">Szolgaltatasaink</span>
+    <div class="mx-auto mb-16 max-w-3xl text-center">
+      <span class="text-sm font-semibold uppercase tracking-wider text-[hsl(var(--primary))]">Szolgáltatásaink</span>
+      <h2 class="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
+        Átfogó digitális megoldások
       </h2>
-      <p class="text-lg text-[hsl(var(--muted-foreground))]">
+      <p class="mt-4 text-lg text-slate-600">
         Atfogo megoldasok a keresokban valo lathatosag maximalizalasara
       </p>
     </div>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {services.map((service, index) => (
-        <div
-          class="group relative rounded-xl border border-[hsl(var(--border))]/50 bg-[hsl(var(--card))] p-8 transition-all duration-300 hover:border-[hsl(var(--primary))]/30 hover:box-glow"
-          style={`animation-delay: ${index * 0.1}s`}
-        >
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))] transition-colors group-hover:bg-[hsl(var(--primary))]/20">
-            <service.icon size={24} />
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service, index) => {
+        const accent = accentColors[index];
+        return (
+          <div
+            class="group rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
+          >
+            <div class={`mb-6 flex h-14 w-14 items-center justify-center rounded-xl ${accent.bg} ${accent.text} transition-transform duration-300 group-hover:scale-110`}>
+              <service.icon size={28} />
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-slate-900">{service.title}</h3>
+            <p class="mb-6 text-sm leading-relaxed text-slate-600">
+              {service.description}
+            </p>
+            <a href="/#kapcsolat" class={`inline-flex items-center text-sm font-semibold ${accent.text} ${accent.hover}`}>
+              Tovább
+              <ArrowRight size={16} class="ml-1 transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
-          <h3 class="mb-2 text-lg font-semibold">{service.title}</h3>
-          <p class="text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
-            {service.description}
-          </p>
-        </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>

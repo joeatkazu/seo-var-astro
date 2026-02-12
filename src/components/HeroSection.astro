@@ -2,48 +2,119 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 ---
 
-<section class="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
-  <!-- Background image -->
-  <div
-    class="absolute inset-0 bg-cover bg-center opacity-30"
-    style="background-image: url('/hero-bg.jpg')"
-  >
-  </div>
-  <!-- Gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/60 via-[hsl(var(--background))]/80 to-[hsl(var(--background))]"></div>
+<section class="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
+  <!-- Decorative gradients -->
+  <div class="absolute top-0 right-0 -z-10 h-full w-1/2 bg-gradient-to-bl from-blue-50 to-transparent"></div>
+  <div class="absolute bottom-0 left-0 -z-10 h-1/2 w-full bg-gradient-to-t from-slate-100/50 to-transparent"></div>
 
-  <div class="container relative z-10 mx-auto px-4 text-center">
-    <div class="mx-auto max-w-4xl">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[hsl(var(--primary))]/30 bg-[hsl(var(--primary))]/10 px-4 py-1.5 text-sm text-[hsl(var(--primary))] animate-[fade-in-up_0.8s_ease-out_forwards]">
-        <Sparkles size={14} />
-        <span>AI-alapu keresoptimalizalas</span>
+  <div class="container relative mx-auto px-4">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+      <!-- Left column: text -->
+      <div class="max-w-2xl">
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-sm font-semibold text-[hsl(var(--primary))] animate-[fade-in-up_0.8s_ease-out_forwards]">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+          </span>
+          AI-alapu keresoptimalizalas
+        </div>
+
+        <h1 class="mb-6 text-4xl font-bold leading-[1.15] text-slate-900 sm:text-5xl lg:text-6xl animate-[fade-in-up_0.8s_ease-out_0.1s_forwards] opacity-0">
+          Budapesti{" "}
+          <span class="text-[hsl(var(--primary))]">SEO és AI</span>
+          <br />
+          keresőoptimalizálás.
+        </h1>
+
+        <p class="mb-8 max-w-lg text-lg leading-relaxed text-slate-600 animate-[fade-in-up_0.8s_ease-out_0.2s_forwards] opacity-0">
+          Teljes körű SEO és AI-optimalizálás magyar KKV-knak. Segítünk megjelenni a Google, a ChatGPT és a Gemini válaszaiban.
+        </p>
+
+        <div class="flex flex-col gap-4 sm:flex-row animate-[fade-in-up_0.8s_ease-out_0.3s_forwards] opacity-0">
+          <a
+            href="/#kapcsolat"
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[hsl(var(--primary))] px-8 py-4 text-base font-semibold text-white shadow-xl shadow-blue-200 transition-all hover:bg-[hsl(var(--primary))]/90 hover:shadow-blue-300 hover:-translate-y-1"
+          >
+            Konzultáció
+            <ArrowRight size={18} />
+          </a>
+          <a
+            href="/#szolgaltatasok"
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition-all hover:border-slate-300 hover:bg-slate-50"
+          >
+            Szolgaltatasaink
+          </a>
+        </div>
+
+        <!-- Trusted by -->
+        <div class="mt-10 flex items-center gap-4 text-sm text-slate-500 animate-[fade-in-up_0.8s_ease-out_0.4s_forwards] opacity-0">
+          <div class="flex -space-x-2">
+            <div class="h-8 w-8 rounded-full border-2 border-white bg-slate-200"></div>
+            <div class="h-8 w-8 rounded-full border-2 border-white bg-slate-300"></div>
+            <div class="h-8 w-8 rounded-full border-2 border-white bg-slate-400"></div>
+            <div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[hsl(var(--primary))] text-[10px] font-bold text-white">+50</div>
+          </div>
+          <p>50+ elégedett ügyfél bízik bennünk</p>
+        </div>
       </div>
 
-      <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl animate-[fade-in-up_0.8s_ease-out_0.1s_forwards] opacity-0">
-        Budapesti{" "}
-        <span class="gradient-text text-glow">SEO és AI </span>
-        <br />
-        keresőoptimalizálás.
-      </h1>
+      <!-- Right column: dashboard card -->
+      <div class="relative flex w-full items-center justify-center lg:h-[600px]">
+        <div class="absolute inset-0 translate-x-12 translate-y-12 rounded-full bg-blue-100/50 blur-3xl"></div>
 
-      <p class="mx-auto mb-10 max-w-2xl text-lg text-[hsl(var(--muted-foreground))] animate-[fade-in-up_0.8s_ease-out_0.2s_forwards] opacity-0">
-        Teljes körű SEO és AI-optimalizálás magyar KKV-knak. Segítünk megjelenni a Google, a ChatGPT és a Gemini válaszaiban.
-      </p>
+        <div class="relative z-10 w-full max-w-lg rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl shadow-slate-200/50">
+          <!-- Header -->
+          <div class="mb-8 flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Teljesítmény áttekintés</h3>
+              <p class="text-sm text-slate-500">Elmúlt 30 nap</p>
+            </div>
+            <div class="flex items-center gap-1 rounded-lg bg-green-50 px-3 py-1 text-sm font-medium text-green-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              +24.5%
+            </div>
+          </div>
 
-      <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-[fade-in-up_0.8s_ease-out_0.3s_forwards] opacity-0">
-        <a
-          href="/#kapcsolat"
-          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-base font-medium h-11 px-8 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 box-glow font-[var(--font-display)] font-semibold tracking-wide"
-        >
-          Konzultáció
-          <ArrowRight size={18} />
-        </a>
-        <a
-          href="/#szolgaltatasok"
-          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-base font-medium h-11 px-8 border border-[hsl(var(--primary))]/50 text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/10 font-[var(--font-display)] font-semibold tracking-wide"
-        >
-          Szolgaltatasaink
-        </a>
+          <!-- Bar chart -->
+          <div class="mb-8 flex h-48 w-full items-end justify-between gap-2">
+            <div class="h-[40%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
+            <div class="h-[65%] w-full rounded-t-sm bg-blue-100 transition-colors hover:bg-blue-200"></div>
+            <div class="h-[50%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
+            <div class="h-[85%] w-full rounded-t-sm bg-blue-200 transition-colors hover:bg-blue-300"></div>
+            <div class="h-[60%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
+            <div class="h-[95%] w-full rounded-t-sm bg-[hsl(var(--primary))] shadow-lg shadow-blue-200"></div>
+            <div class="h-[75%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
+          </div>
+
+          <!-- Stats grid -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+              <div class="mb-1 text-xs font-medium uppercase tracking-wider text-slate-500">Összes forgalom</div>
+              <div class="text-2xl font-bold text-slate-900">128.4k</div>
+            </div>
+            <div class="rounded-xl border border-slate-100 bg-slate-50 p-4">
+              <div class="mb-1 text-xs font-medium uppercase tracking-wider text-slate-500">Konverziós ráta</div>
+              <div class="text-2xl font-bold text-slate-900">3.8%</div>
+            </div>
+          </div>
+
+          <!-- Floating badge -->
+          <div class="absolute -right-8 -top-8 animate-bounce rounded-xl border border-slate-100 bg-white p-4 shadow-xl" style="animation-duration: 3s;">
+            <div class="flex items-center gap-3">
+              <div class="rounded-lg bg-green-100 p-2 text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-500">Cél elérve</div>
+                <div class="text-sm font-bold text-slate-900">SEO Target</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

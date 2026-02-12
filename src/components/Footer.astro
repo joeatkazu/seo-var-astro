@@ -2,14 +2,80 @@
 
 ---
 
-<footer class="border-t border-[hsl(var(--border))]/50 py-10">
-  <div class="container mx-auto flex flex-col items-center justify-between gap-4 px-4 sm:flex-row">
-    <a href="/" class="font-[var(--font-display)] text-lg font-bold tracking-tight">
-      <span class="gradient-text">Kereső</span>
-      <span class="text-[hsl(var(--foreground))]">Partner</span>
-    </a>
-    <p class="text-sm text-[hsl(var(--muted-foreground))]">
-      &copy; 2026 KeresőPartner.
-    </p>
+<footer class="border-t border-slate-200 bg-slate-50 pt-16 pb-8">
+  <div class="container mx-auto px-4">
+    <div class="mb-12 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
+      <!-- Logo + description + socials -->
+      <div class="col-span-2 lg:col-span-2">
+        <div class="mb-6 flex items-center gap-2">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(var(--primary))] text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-5 w-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </div>
+          <span class="text-xl font-bold text-slate-900">Kereso<span class="text-[hsl(var(--primary))]">Partner</span></span>
+        </div>
+        <p class="mb-6 max-w-sm text-slate-500">
+          Adatvezérelt stratégiákkal és kreatív megoldásokkal segítjük vállalkozásod digitális növekedését.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-[hsl(var(--primary))]">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Szolgáltatások -->
+      <div>
+        <h4 class="mb-6 font-bold text-slate-900">Szolgáltatások</h4>
+        <ul class="space-y-3 text-sm text-slate-600">
+          <li><a href="/#szolgaltatasok" class="transition-colors hover:text-[hsl(var(--primary))]">SEO optimalizálás</a></li>
+          <li><a href="/#szolgaltatasok" class="transition-colors hover:text-[hsl(var(--primary))]">AI keresőoptimalizálás</a></li>
+          <li><a href="/#szolgaltatasok" class="transition-colors hover:text-[hsl(var(--primary))]">Helyi SEO</a></li>
+          <li><a href="/#szolgaltatasok" class="transition-colors hover:text-[hsl(var(--primary))]">Analitika</a></li>
+          <li><a href="/#szolgaltatasok" class="transition-colors hover:text-[hsl(var(--primary))]">Core Web Vitals</a></li>
+        </ul>
+      </div>
+
+      <!-- Cég -->
+      <div>
+        <h4 class="mb-6 font-bold text-slate-900">Cég</h4>
+        <ul class="space-y-3 text-sm text-slate-600">
+          <li><a href="/#rolunk" class="transition-colors hover:text-[hsl(var(--primary))]">Rólunk</a></li>
+          <li><a href="/#eredmenyek" class="transition-colors hover:text-[hsl(var(--primary))]">Eredmények</a></li>
+          <li><a href="/blog/" class="transition-colors hover:text-[hsl(var(--primary))]">Blog</a></li>
+          <li><a href="/#kapcsolat" class="transition-colors hover:text-[hsl(var(--primary))]">Kapcsolat</a></li>
+        </ul>
+      </div>
+
+      <!-- Kapcsolat -->
+      <div class="col-span-2 md:col-span-1">
+        <h4 class="mb-6 font-bold text-slate-900">Kapcsolat</h4>
+        <ul class="space-y-3 text-sm text-slate-600">
+          <li class="flex items-start gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[hsl(var(--primary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Budapest,<br />Magyarország</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[hsl(var(--primary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>hello@keresopartner.hu</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-8 md:flex-row">
+      <p class="text-sm text-slate-500">&copy; 2026 KeresőPartner. Minden jog fenntartva.</p>
+      <div class="flex gap-6 text-sm text-slate-500">
+        <a href="#" class="hover:text-[hsl(var(--primary))]">Adatvédelem</a>
+        <a href="#" class="hover:text-[hsl(var(--primary))]">Sütik</a>
+      </div>
+    </div>
   </div>
 </footer>

@@ -11,7 +11,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
   return (
     <>
       <button
-        className="text-[hsl(var(--foreground))] md:hidden"
+        className="text-slate-600 hover:text-[hsl(var(--primary))] md:hidden"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >
@@ -19,13 +19,13 @@ export default function MobileMenu({ links }: MobileMenuProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-16 left-0 right-0 border-t border-[hsl(var(--border))]/50 bg-[hsl(var(--background))]/95 backdrop-blur-xl md:hidden">
+        <div className="absolute top-20 left-0 right-0 border-t border-slate-200 bg-white/95 backdrop-blur-xl md:hidden">
           <div className="flex flex-col gap-4 p-4">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--primary))]"
+                className="text-sm font-medium text-slate-600 transition-colors hover:text-[hsl(var(--primary))]"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
@@ -34,7 +34,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
             <a
               href="/#kapcsolat"
               onClick={() => setIsOpen(false)}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 box-glow font-[var(--font-display)] font-semibold tracking-wide"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium h-10 px-6 bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]/90 shadow-lg shadow-blue-200 transition-all"
             >
               Konzultacio
             </a>

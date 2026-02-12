@@ -25,9 +25,9 @@ const team = [
   <div class="container mx-auto px-4">
     <div class="mx-auto mb-16 max-w-2xl text-center">
       <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-        Ismerje meg  <span class="gradient-text">alapítóinkat</span>
+        Ismerje meg  <span class="text-[hsl(var(--primary))]">alapítóinkat</span>
       </h2>
-      <p class="text-lg text-[hsl(var(--muted-foreground))]">
+      <p class="text-lg text-slate-600">
         Tapasztalt szakemberek, akik a keresőoptimalizálás és az AI-keresés világában segítenek növekedni.
       </p>
     </div>
@@ -35,21 +35,21 @@ const team = [
     <div class="mx-auto grid max-w-4xl gap-8 sm:grid-cols-2">
       {team.map((member) => (
         <div
-          class="group relative rounded-xl border border-[hsl(var(--border))]/50 bg-[hsl(var(--card))] p-8 text-center transition-all duration-300 hover:border-[hsl(var(--primary))]/30 hover:box-glow"
+          class="group rounded-2xl border border-slate-100 bg-white p-8 text-center shadow-sm transition-all duration-300 hover:shadow-xl"
         >
           <img
             src={member.photo}
             alt={member.name}
             class="mx-auto mb-5 h-20 w-20 rounded-full border-2 border-[hsl(var(--primary))]/20 object-cover"
           />
-          <h3 class="mb-1 text-xl font-semibold">{member.name}</h3>
+          <h3 class="mb-1 text-xl font-semibold text-slate-900">{member.name}</h3>
           <p class="mb-3 text-sm font-medium text-[hsl(var(--primary))]">{member.role}</p>
-          <p class="mb-5 text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
+          <p class="mb-5 text-sm leading-relaxed text-slate-600">
             {member.bio}
           </p>
           <a
             href={member.linkedin}
-            class="inline-flex items-center gap-1.5 text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--primary))]"
+            class="inline-flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-[hsl(var(--primary))]"
             target="_blank"
             rel="noopener noreferrer"
           >

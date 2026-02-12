@@ -80,7 +80,7 @@ export default function ContactSection() {
     return (
       <section id="kapcsolat" className="py-24">
         <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-2xl rounded-2xl border border-[hsl(var(--primary))]/20 bg-[hsl(var(--card))] p-12 text-center box-glow">
+          <div className="mx-auto max-w-2xl rounded-2xl border border-slate-100 bg-white p-12 text-center shadow-sm">
             <CheckCircle className="mx-auto mb-4 h-12 w-12 text-[hsl(var(--primary))]" />
             <h2 className="mb-2 text-2xl font-bold">Koszonjuk!</h2>
             <p className="text-[hsl(var(--muted-foreground))]">
@@ -97,16 +97,16 @@ export default function ContactSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-            Lepj velunk <span className="gradient-text">kapcsolatba</span>
+            Lepj velunk <span className="text-[hsl(var(--primary))]">kapcsolatba</span>
           </h2>
-          <p className="text-[hsl(var(--muted-foreground))]">
+          <p className="text-slate-600">
             Ird meg, miben segithetunk, es 24 oran belul valaszolunk.
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="mx-auto max-w-xl space-y-6 rounded-2xl border border-[hsl(var(--primary))]/10 bg-[hsl(var(--card))] p-8 sm:p-10"
+          className="mx-auto max-w-xl space-y-6 rounded-2xl border border-slate-100 bg-white p-8 shadow-sm sm:p-10"
         >
           <div className="space-y-2">
             <Label htmlFor="name">Nev *</Label>

@@ -5,14 +5,22 @@ const links = [
   { label: "Szolgaltatasok", href: "/#szolgaltatasok" },
   { label: "Eredmenyek", href: "/#eredmenyek" },
   { label: "Rolunk", href: "/#rolunk" },
+  { label: "Blog", href: "/blog/" },
 ];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(var(--border))]/50 bg-[hsl(var(--background))]/80 backdrop-blur-xl">
-  <div class="container mx-auto flex h-16 items-center justify-between px-4">
-    <a href="/" class="font-[var(--font-display)] text-xl font-bold tracking-tight">
-      <span class="gradient-text">Kereső</span>
-      <span class="text-[hsl(var(--foreground))]">Partner</span>
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+  <div class="container mx-auto flex h-20 items-center justify-between px-4">
+    <a href="/" class="flex items-center gap-2">
+      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[hsl(var(--primary))] text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+      </div>
+      <div>
+        <span class="block text-xl font-bold leading-none text-slate-900">Kereso<span class="text-[hsl(var(--primary))]">Partner</span></span>
+        <span class="block text-xs font-medium tracking-wide text-slate-500">DIGITAL AGENCY</span>
+      </div>
     </a>
 
     <!-- Desktop -->
@@ -20,14 +28,14 @@ const links = [
       {links.map((link) => (
         <a
           href={link.href}
-          class="text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--primary))]"
+          class="text-sm font-medium text-slate-600 transition-colors hover:text-[hsl(var(--primary))]"
         >
           {link.label}
         </a>
       ))}
       <a
         href="/#kapcsolat"
-        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 box-glow font-[var(--font-display)] font-semibold tracking-wide"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium h-10 px-6 bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]/90 shadow-lg shadow-blue-200 transition-all hover:shadow-blue-300 hover:-translate-y-0.5"
       >
         Konzultacio
       </a>
