@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import Footer from "@/components/Footer.astro";
+import { ArrowLeft, Search, Brain, BarChart3, Globe, Zap, Target } from "lucide-react";
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map(service => ({
+    params: { slug: service.id.replace(/\.mdx?$/, '') },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { Content } = await service.render();
+const { title, longDescription, icon, accentColor } = service.data;
+
+const iconMap: Record<string, any> = {
+  Search, Brain, BarChart3, Globe, Zap, Target,
+};
+const IconComponent = iconMap[icon];
+
+const colorMap: Record<string, { bg: string; text: string }> = {
+  blue:   { bg: "bg-blue-100",   text: "text-blue-600" },
+  indigo: { bg: "bg-indigo-100", text: "text-indigo-600" },
+  teal:   { bg: "bg-teal-100",   text: "text-teal-600" },
+  purple: { bg: "bg-purple-100", text: "text-purple-600" },
+  orange: { bg: "bg-orange-100", text: "text-orange-600" },
+  pink:   { bg: "bg-pink-100",   text: "text-pink-600" },
+};
+const colors = colorMap[accentColor] ?? colorMap.blue;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": title,
+  "description": longDescription,
+  "provider": {
+    "@type": "Organization",
+    "name": "KeresoPartner",
+    "url": "https://keresopartner.hu"
+  }
+};
+---
+
+<BaseLayout title={`${title} – KeresoPartner`} description={longDescription} schema={schema}>
+  <Navbar />
+
+  <div class="min-h-screen bg-[hsl(var(--background))]">
+    <!-- Hero -->
+    <header class="relative overflow-hidden border-b border-[hsl(var(--border))] bg-[hsl(var(--card))] pt-28 pb-16">
+      <div class="container mx-auto px-4">
+        <a
+          href="/#szolgaltatasok"
+          class="mb-8 inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--primary))]"
+        >
+          <ArrowLeft size={16} />
+          Összes szolgáltatás
+        </a>
+
+        <div class="mx-auto max-w-3xl">
+          <div class={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ${colors.bg} ${colors.text}`}>
+            {IconComponent && <IconComponent size={32} />}
+          </div>
+          <h1 class="mb-4 font-[var(--font-display)] text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            {title}
+          </h1>
+          <p class="text-lg leading-relaxed text-slate-600">
+            {longDescription}
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- MDX Body (Benefits, Process, free-form content — all controlled from the .mdx file) -->
+    <article class="container mx-auto px-4 py-16">
+      <div class="prose prose-lg mx-auto max-w-3xl text-[hsl(var(--foreground))] prose-headings:font-[var(--font-display)] prose-headings:text-[hsl(var(--foreground))] prose-p:text-[hsl(var(--muted-foreground))] prose-strong:text-[hsl(var(--foreground))] prose-a:text-[hsl(var(--primary))] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-[hsl(var(--primary))] prose-blockquote:text-[hsl(var(--muted-foreground))] prose-li:text-[hsl(var(--muted-foreground))] prose-img:rounded-xl">
+        <Content />
+      </div>
+    </article>
+
+    <!-- CTA -->
+    <section class="border-t border-[hsl(var(--border))] bg-[hsl(var(--card))] py-16">
+      <div class="container mx-auto px-4 text-center">
+        <h3 class="mb-3 font-[var(--font-display)] text-2xl font-bold text-slate-900">
+          Érdekel a {title.toLowerCase()}?
+        </h3>
+        <p class="mb-6 text-slate-600">
+          Kérjen ingyenes konzultációt és személyre szabott ajánlatot!
+        </p>
+        <a
+          href="/#kapcsolat"
+          class="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--primary))] px-8 py-3 font-medium text-white shadow-lg shadow-blue-200 transition-all hover:bg-[hsl(var(--primary))]/90 hover:-translate-y-0.5 hover:shadow-blue-300"
+        >
+          Kapcsolatfelvétel
+        </a>
+      </div>
+    </section>
+
+    <Footer />
+  </div>
+</BaseLayout>

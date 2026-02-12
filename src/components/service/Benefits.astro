@@ -1,0 +1,33 @@
+---
+import { CheckCircle2 } from "lucide-react";
+
+interface Props {
+  items: string[];
+  title?: string;
+  accentColor?: string;
+}
+
+const { items, title = "Miért válaszd ezt?", accentColor = "blue" } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  blue: "text-blue-600",
+  indigo: "text-indigo-600",
+  teal: "text-teal-600",
+  purple: "text-purple-600",
+  orange: "text-orange-600",
+  pink: "text-pink-600",
+};
+const iconColor = colorMap[accentColor] ?? colorMap.blue;
+---
+
+<div class="not-prose my-12">
+  <h2 class="mb-6 text-2xl font-bold text-slate-900">{title}</h2>
+  <div class="grid gap-4 sm:grid-cols-2">
+    {items.map((benefit) => (
+      <div class="flex items-start gap-3 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+        <CheckCircle2 size={20} className={`mt-0.5 shrink-0 ${iconColor}`} />
+        <span class="text-sm leading-relaxed text-slate-700">{benefit}</span>
+      </div>
+    ))}
+  </div>
+</div>

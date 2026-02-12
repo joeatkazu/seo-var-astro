@@ -12,4 +12,14 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const services = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    longDescription: z.string(),
+    icon: z.string(),
+    accentColor: z.string(),
+  }),
+});
+
+export const collections = { posts, services };

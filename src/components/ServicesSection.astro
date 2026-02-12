@@ -13,33 +13,39 @@ const accentColors = [
 const services = [
   {
     icon: Search,
+    slug: "seo-strategia",
     title: "SEO stratégia és kivitelezés",
-    description: "Technikai SEO, tartalomstratégia és minőségi linképítés egy átfogó rendszerben. Nem elszigetelt feladatok, hanem üzleti célokra épített keresési infrastruktúra, amely fenntartható organikus növekedést eredményez.",
+    description: "Technikai SEO, tartalomstratégia és prémium linképítés – nálunk ez egyetlen, összehangolt gépezet. Nem ad-hoc feladatokban, hanem üzleti célokra tervezett rendszerben gondolkodunk, amely hosszú távú és mérhető növekedést hoz cégének.",
   },
   {
     icon: Brain,
+    slug: "ai-kereses",
     title: "AI keresőoptimalizálás",
-    description: "Optimalizálás ChatGPT, Gemini és más AI-platformok számára. Segítünk abban, hogy vállalkozása megjelenjen az AI-válaszokban, amikor potenciális ügyfelei kérdeznek.",
+    description: "AI-optimalizálás ChatGPT, Gemini és más platformokra. Gondoskodunk róla, hogy az Ön cége legyen a válasz, amikor a leendő ügyfelei kérdeznek.",
   },
   {
     icon: BarChart3,
-    title: "Analitika és üzleti riportálás",
-    description: "Strukturált mérés és adatvezérelt riportok. Nem pusztán forgalmi adatok, hanem konverziók, bevétel és valós üzleti hatás.",
+    slug: "analitika",
+    title: "Adatalapú döntéstámogatás és érthető üzleti jelentések.",
+    description: "Több mint statisztika: valódi üzleti hatás. Strukturált méréseinkkel nemcsak a látogatókat látja, hanem a konkrét bevételt és a cége növekedését is.",
   },
   {
     icon: Globe,
-    title: "Helyi SEO",
-    description: "Google Térkép és helyi keresési jelenlét optimalizálása budapesti és magyar KKV-k számára. Több telefonhívás, több ajánlatkérés, erősebb helyi pozíció.",
+    slug: "helyi-seo",
+    title: "Helyi SEO és Google Térkép optimalizálás.",
+    description: "Legyen az első a térképen! Google Térkép és helyi keresőoptimalizálás budapesti és hazai vállalkozásoknak. Több telefonhívás, több ajánlatkérés és megkerülhetetlen piaci előny a környéken.",
   },
   {
     icon: Zap,
-    title: "Weboldal teljesítmény és Core Web Vitals",
-    description: "Oldalbetöltési sebesség, technikai stabilitás és felhasználói élmény optimalizálása a jobb rangsorolás és magasabb konverzió érdekében.",
+    slug: "weboldal-teljesitmeny",
+    title: "Weboldal-teljesítmény és Core Web Vitals optimalizálás.",
+    description: "Szeressék a látogatók, imádja a Google! Egy villámgyors és stabil weboldal a legjobb alap a sikerhez. Ha nem kell várni a betöltésre, a felhasználói élmény szárnyal, a Google pedig előkelő helyezéssel jutalmazza a gyorsaságot – Önnek pedig ez több elégedett vásárlót és profitot jelent.",
   },
   {
     icon: Target,
-    title: "Versenytárs- és piacfelmérés",
-    description: "Részletes versenytárselemzés és stratégiai pozicionálás. Feltérképezzük, hol nyernek a versenytársak, és hol lehet strukturális előnyt építeni.",
+    slug: "versenytars-elemzes",
+    title: "Versenytárs-elemzés és piaci lehetőségek.",
+    description: "Ismerje ki a versenytársak stratégiáját, és találjuk meg az Ön számára legelőnyösebb pozicionálást! Feltérképezzük, hol nyernek jelenleg a többiek, és hol tudunk olyan üzleti struktúrát építeni, amivel Ön kerül lépéselőnybe. Ne hagyatkozzon csak a megérzéseire: alapozza a döntéseit valódi adatokra!",
   },
 ];
 ---
@@ -52,7 +58,7 @@ const services = [
         Átfogó digitális megoldások
       </h2>
       <p class="mt-4 text-lg text-slate-600">
-        Atfogo megoldasok a keresokban valo lathatosag maximalizalasara
+        Maximális jelenlét a keresőkben – átfogó stratégia az Ön cégére szabva.
       </p>
     </div>
 
@@ -70,7 +76,7 @@ const services = [
             <p class="mb-6 text-sm leading-relaxed text-slate-600">
               {service.description}
             </p>
-            <a href="/#kapcsolat" class={`inline-flex items-center text-sm font-semibold ${accent.text} ${accent.hover}`}>
+            <a href={`/szolgaltatasok/${service.slug}`} class={`inline-flex items-center text-sm font-semibold ${accent.text} ${accent.hover}`}>
               Tovább
               <ArrowRight size={16} class="ml-1 transition-transform group-hover:translate-x-1" />
             </a>

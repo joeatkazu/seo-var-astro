@@ -97,10 +97,10 @@ export default function ContactSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-            Lepj velunk <span className="text-[hsl(var(--primary))]">kapcsolatba</span>
+          Kérdezzen közvetlenül <span className="text-[hsl(var(--primary))]">tőlünk!</span>
           </h2>
           <p className="text-slate-600">
-            Ird meg, miben segithetunk, es 24 oran belul valaszolunk.
+            Ird meg, miben segithetunk, es 24 oran belul valaszolunk. Írja meg nekünk, miben segíthetünk, és 24 órán belül válaszolunk.
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export default function ContactSection() {
           className="mx-auto max-w-xl space-y-6 rounded-2xl border border-slate-100 bg-white p-8 shadow-sm sm:p-10"
         >
           <div className="space-y-2">
-            <Label htmlFor="name">Nev *</Label>
+            <Label htmlFor="name">Név *</Label>
             <Input
               id="name"
               name="name"
@@ -150,7 +150,7 @@ export default function ContactSection() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="message">Uzenet *</Label>
+            <Label htmlFor="message">Üzenet *</Label>
             <Textarea
               id="message"
               name="message"
@@ -165,7 +165,7 @@ export default function ContactSection() {
           </div>
 
           <Button type="submit" variant="hero" size="lg" className="w-full gap-2 text-base" disabled={submitting}>
-            {submitting ? "Kuldes..." : "Uzenet kuldese"}
+            {submitting ? "Kuldes..." : "Üzenet küldése"}
             <Send size={18} />
           </Button>
         </form>

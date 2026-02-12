@@ -1,0 +1,24 @@
+---
+title: "Adatalapú döntéstámogatás"
+icon: "BarChart3"
+accentColor: "teal"
+longDescription: "Több mint statisztika: valódi üzleti hatás. Strukturált méréseinkkel nemcsak a látogatókat látja, hanem a konkrét bevételt és a cége növekedését is."
+---
+import Benefits from '@/components/service/Benefits.astro';
+import ProcessSteps from '@/components/service/ProcessSteps.astro';
+
+<Benefits accentColor="teal" items={[
+  "Testreszabott analitikai dashboard",
+  "Konverziómérés és célkövetés",
+  "Havi üzleti hatás riportok magyarul",
+  "Google Analytics 4 profi beállítás",
+  "Felhasználói viselkedéselemzés",
+  "ROI-kalkuláció és bevétel-hozzárendelés",
+]} />
+
+<ProcessSteps accentColor="teal" items={[
+  { step: "Mérési terv", description: "Meghatározzuk az üzleti szempontból legfontosabb KPI-kat és beállítjuk a pontos mérési keretrendszert." },
+  { step: "Technikai implementáció", description: "GA4, Google Tag Manager és egyéb eszközök konfigurálása a pontos adatgyűjtéshez." },
+  { step: "Dashboard készítés", description: "Egyedi, könnyen érthető riportolási felületet építünk, amelyen valós időben követheti az eredményeket." },
+  { step: "Elemzés és javaslatok", description: "Havonta elemezzük az adatokat és konkrét, megvalósítható javaslatokat fogalmazunk meg a növekedéshez." },
+]} />

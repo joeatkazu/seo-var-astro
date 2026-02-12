@@ -1,0 +1,24 @@
+---
+title: "Core Web Vitals optimalizálás"
+icon: "Zap"
+accentColor: "orange"
+longDescription: "Szeressék a látogatók, imádja a Google! Egy villámgyors és stabil weboldal a legjobb alap a sikerhez. Ha nem kell várni a betöltésre, a felhasználói élmény szárnyal, a Google pedig előkelő helyezéssel jutalmazza a gyorsaságot."
+---
+import Benefits from '@/components/service/Benefits.astro';
+import ProcessSteps from '@/components/service/ProcessSteps.astro';
+
+<Benefits accentColor="orange" items={[
+  "Largest Contentful Paint (LCP) javítás",
+  "Cumulative Layout Shift (CLS) csökkentés",
+  "Interaction to Next Paint (INP) optimalizálás",
+  "Képoptimalizálás és modern formátumok",
+  "Szerver-oldali válaszidő gyorsítás",
+  "Mobilbarát teljesítmény minden eszközön",
+]} />
+
+<ProcessSteps accentColor="orange" items={[
+  { step: "Teljesítményvizsgálat", description: "Részletes Core Web Vitals auditot végzünk Lighthouse, CrUX és valós felhasználói adatok alapján." },
+  { step: "Prioritási terv", description: "Hatás és megvalósíthatóság alapján priorizáljuk a javítandó területeket." },
+  { step: "Technikai optimalizálás", description: "Végrehajtjuk a javításokat: képtömörítés, lazy loading, kód-splitting, cache-stratégia, szerver-tuning." },
+  { step: "Validálás", description: "A javítások után újramérjük a Web Vitals mutatókat és biztosítjuk a tartós javulást." },
+]} />
