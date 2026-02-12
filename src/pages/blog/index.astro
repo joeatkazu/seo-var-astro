@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import Footer from "@/components/Footer.astro";
+import { Calendar, Clock, User, ArrowRight } from "lucide-react";
+
+const posts = (await getCollection("posts")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout title="Blog - KeresoPartner" description="Friss cikkek az SEO, AI-keresés és digitális növekedés világából.">
+  <Navbar />
+
+  <header class="border-b border-[hsl(var(--border))] bg-[hsl(var(--card))] pt-28 pb-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="mb-4 font-[var(--font-display)] text-4xl font-bold tracking-tight sm:text-5xl">
+        <span class="gradient-text">Blog</span>
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-[hsl(var(--muted-foreground))]">
+        Friss cikkek az SEO, AI-keresés és digitális növekedés világából.
+      </p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="mx-auto grid max-w-4xl gap-8">
+      {posts.length === 0 && (
+        <p class="text-center text-[hsl(var(--muted-foreground))]">
+          Hamarosan érkeznek az első cikkek!
+        </p>
+      )}
+      {posts.map((post) => {
+        const slug = post.id.replace(/\.mdx?$/, "");
+        const { title, date, author, readTime, coverImage } = post.data;
+        return (
+          <a
+            href={`/blog/${slug}`}
+            class="group overflow-hidden rounded-xl border border-[hsl(var(--border))]/50 bg-[hsl(var(--card))] transition-all duration-300 hover:border-[hsl(var(--primary))]/30 hover:shadow-lg"
+          >
+            <div class="sm:flex">
+              <div class="aspect-[16/4.5] sm:aspect-auto sm:w-72 sm:shrink-0">
+                <img
+                  src={coverImage}
+                  alt={title}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex flex-1 flex-col justify-center p-6">
+                <h2 class="mb-2 text-xl font-semibold tracking-tight transition-colors group-hover:text-[hsl(var(--primary))]">
+                  {title}
+                </h2>
+                <div class="mb-4 flex flex-wrap items-center gap-4 text-xs text-[hsl(var(--muted-foreground))]">
+                  <span class="inline-flex items-center gap-1">
+                    <User size={12} /> {author}
+                  </span>
+                  <span class="inline-flex items-center gap-1">
+                    <Calendar size={12} /> {date}
+                  </span>
+                  <span class="inline-flex items-center gap-1">
+                    <Clock size={12} /> {readTime}
+                  </span>
+                </div>
+                <span class="inline-flex items-center gap-1 text-sm font-medium text-[hsl(var(--primary))]">
+                  Tovább olvasom <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
