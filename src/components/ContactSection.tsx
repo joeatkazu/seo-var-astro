@@ -10,7 +10,7 @@ import { z } from "zod";
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Add meg a neved").max(100),
   email: z.string().trim().email("Ervenytelen email cim").max(255),
-  company: z.string().trim().max(100).optional(),
+  website: z.string().trim().max(255).optional(),
   message: z.string().trim().min(1, "Ird le az uzeneted").max(2000),
 });
 
@@ -18,11 +18,12 @@ export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
+    website: "",
     message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -31,7 +32,7 @@ export default function ContactSection() {
     setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
@@ -42,11 +43,37 @@ export default function ContactSection() {
       setErrors(fieldErrors);
       return;
     }
-    setSubmitted(true);
-    toast({
-      title: "Uzenet elkuldve!",
-      description: "Hamarosan felvesszuk veled a kapcsolatot.",
-    });
+    setSubmitting(true);
+    try {
+      const res = await fetch(
+        "https://api.hsforms.com/submissions/v3/integration/submit/147792287/048412e7-145f-4091-a75d-f6cee165c8ab",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fields: [
+              { name: "firstname", value: formData.name },
+              { name: "email", value: formData.email },
+              { name: "website", value: formData.website },
+              { name: "message", value: formData.message },
+            ],
+          }),
+        }
+      );
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+      toast({
+        title: "Uzenet elkuldve!",
+        description: "Hamarosan felvesszuk veled a kapcsolatot.",
+      });
+    } catch {
+      toast({
+        title: "Hiba tortent",
+        description: "Kerlek probald ujra kesobb.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -111,13 +138,14 @@ export default function ContactSection() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="company">Cegnev</Label>
+            <Label htmlFor="website">Weboldal</Label>
             <Input
-              id="company"
-              name="company"
-              value={formData.company}
+              id="website"
+              name="website"
+              value={formData.website}
               onChange={handleChange}
               className="bg-[hsl(var(--background))]"
+              placeholder="https://"
             />
           </div>
 
@@ -136,8 +164,8 @@ export default function ContactSection() {
             )}
           </div>
 
-          <Button type="submit" variant="hero" size="lg" className="w-full gap-2 text-base">
-            Uzenet kuldese
+          <Button type="submit" variant="hero" size="lg" className="w-full gap-2 text-base" disabled={submitting}>
+            {submitting ? "Kuldes..." : "Uzenet kuldese"}
             <Send size={18} />
           </Button>
         </form>
