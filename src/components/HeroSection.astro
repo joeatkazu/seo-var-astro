@@ -52,63 +52,15 @@ import { ArrowRight, Sparkles } from "lucide-react";
         </div>
       </div>
 
-      <!-- Right column: dashboard card -->
+      <!-- Right column: hero image -->
       <div class="relative flex w-full items-center justify-center lg:h-[600px]">
         <div class="absolute inset-0 translate-x-12 translate-y-12 rounded-full bg-blue-100/50 blur-3xl"></div>
-
-        <div class="relative z-10 w-full max-w-lg rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl shadow-slate-200/50">
-          <!-- Header -->
-          <div class="mb-8 flex items-center justify-between">
-            <div>
-              <h3 class="text-lg font-bold text-slate-900">Teljesítmény áttekintés</h3>
-              <p class="text-sm text-slate-500">Elmúlt 30 nap</p>
-            </div>
-            <div class="flex items-center gap-1 rounded-lg bg-green-50 px-3 py-1 text-sm font-medium text-green-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-              +24.5%
-            </div>
-          </div>
-
-          <!-- Bar chart -->
-          <div class="mb-8 flex h-48 w-full items-end justify-between gap-2">
-            <div class="h-[40%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
-            <div class="h-[65%] w-full rounded-t-sm bg-blue-100 transition-colors hover:bg-blue-200"></div>
-            <div class="h-[50%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
-            <div class="h-[85%] w-full rounded-t-sm bg-blue-200 transition-colors hover:bg-blue-300"></div>
-            <div class="h-[60%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
-            <div class="h-[95%] w-full rounded-t-sm bg-[hsl(var(--primary))] shadow-lg shadow-blue-200"></div>
-            <div class="h-[75%] w-full rounded-t-sm bg-blue-50 transition-colors hover:bg-blue-100"></div>
-          </div>
-
-          <!-- Stats grid -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-              <div class="mb-1 text-xs font-medium uppercase tracking-wider text-slate-500">Összes forgalom</div>
-              <div class="text-2xl font-bold text-slate-900">128.4k</div>
-            </div>
-            <div class="rounded-xl border border-slate-100 bg-slate-50 p-4">
-              <div class="mb-1 text-xs font-medium uppercase tracking-wider text-slate-500">Konverziós ráta</div>
-              <div class="text-2xl font-bold text-slate-900">3.8%</div>
-            </div>
-          </div>
-
-          <!-- Floating badge -->
-          <div class="absolute -right-8 -top-8 animate-bounce rounded-xl border border-slate-100 bg-white p-4 shadow-xl" style="animation-duration: 3s;">
-            <div class="flex items-center gap-3">
-              <div class="rounded-lg bg-green-100 p-2 text-green-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <div class="text-xs text-slate-500">Cél elérve</div>
-                <div class="text-sm font-bold text-slate-900">SEO Target</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img
+          src="/hero.png"
+          alt="KeresoPartner SEO és AI keresőoptimalizálás"
+          class="relative z-10 w-full max-w-lg rounded-2xl shadow-2xl shadow-slate-200/50"
+          loading="eager"
+        />
       </div>
     </div>
   </div>
