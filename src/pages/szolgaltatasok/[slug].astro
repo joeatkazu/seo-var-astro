@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
-import { ArrowLeft, Search, Brain, BarChart3, Globe, Zap, Target } from "lucide-react";
+import ServiceSidebar from "@/components/service/ServiceSidebar.astro";
+import { Search, Brain, BarChart3, Globe, Zap, Target, ChevronRight } from "lucide-react";
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -50,17 +51,16 @@ const schema = {
 
   <div class="min-h-screen bg-[hsl(var(--background))]">
     <!-- Hero -->
-    <header class="relative overflow-hidden border-b border-[hsl(var(--border))] bg-[hsl(var(--card))] pt-28 pb-16">
-      <div class="container mx-auto px-4">
-        <a
-          href="/#szolgaltatasok"
-          class="mb-8 inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:text-[hsl(var(--primary))]"
-        >
-          <ArrowLeft size={16} />
-          Összes szolgáltatás
-        </a>
+    <header class="relative overflow-hidden border-b border-[hsl(var(--border))] article-gradient pt-28 pb-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-8 flex items-center gap-1 text-sm text-slate-400">
+          <a href="/#szolgaltatasok" class="transition-colors hover:text-[hsl(var(--primary))]">Szolgáltatások</a>
+          <ChevronRight size={14} />
+          <span class="text-slate-600">{title}</span>
+        </nav>
 
-        <div class="mx-auto max-w-3xl">
+        <div class="max-w-3xl">
           <div class={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ${colors.bg} ${colors.text}`}>
             {IconComponent && <IconComponent size={32} />}
           </div>
@@ -74,12 +74,24 @@ const schema = {
       </div>
     </header>
 
-    <!-- MDX Body (Benefits, Process, free-form content — all controlled from the .mdx file) -->
-    <article class="container mx-auto px-4 py-4">
-      <div class="prose prose-lg mx-auto max-w-3xl text-[hsl(var(--foreground))] prose-headings:font-[var(--font-display)] prose-headings:text-[hsl(var(--foreground))] prose-p:text-[hsl(var(--muted-foreground))] prose-strong:text-[hsl(var(--foreground))] prose-a:text-[hsl(var(--primary))] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-[hsl(var(--primary))] prose-blockquote:text-[hsl(var(--muted-foreground))] prose-li:text-[hsl(var(--muted-foreground))] prose-img:rounded-xl">
-        <Content />
+    <!-- Main content: two-column layout -->
+    <main class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-16">
+          <!-- Left column: MDX content -->
+          <article class="lg:col-span-8">
+            <div class="prose prose-lg text-[hsl(var(--foreground))] prose-headings:font-[var(--font-display)] prose-headings:text-[hsl(var(--foreground))] prose-p:text-[hsl(var(--muted-foreground))] prose-strong:text-[hsl(var(--foreground))] prose-a:text-[hsl(var(--primary))] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-[hsl(var(--primary))] prose-blockquote:text-[hsl(var(--muted-foreground))] prose-li:text-[hsl(var(--muted-foreground))] prose-img:rounded-xl">
+              <Content />
+            </div>
+          </article>
+
+          <!-- Right column: Sidebar -->
+          <div class="lg:col-span-4">
+            <ServiceSidebar />
+          </div>
+        </div>
       </div>
-    </article>
+    </main>
 
     <!-- CTA -->
     <section class="border-t border-[hsl(var(--border))] bg-[hsl(var(--card))] py-16">

@@ -161,6 +161,25 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+/* Service page layout */
+.sticky-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.article-gradient {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.content-section {
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.conversion-break {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
 .gradient-border::before {
   content: '';
   position: absolute;
