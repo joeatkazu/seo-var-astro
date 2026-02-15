@@ -33,17 +33,208 @@ const colorMap: Record<string, { bg: string; text: string }> = {
 };
 const colors = colorMap[accentColor] ?? colorMap.blue;
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": title,
-  "description": longDescription,
-  "provider": {
-    "@type": "Organization",
+const slug = service.id.replace(/\.mdx?$/, '');
+const pageUrl = `https://keresopartner.hu/szolgaltatasok/${slug}`;
+
+// --- Base schema graph (all service pages) ---
+const graph: Record<string, any>[] = [
+  // BreadcrumbList
+  {
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Főoldal", "item": "https://keresopartner.hu" },
+      { "@type": "ListItem", "position": 2, "name": "Szolgáltatások", "item": "https://keresopartner.hu/#szolgaltatasok" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": pageUrl },
+    ],
+  },
+  // Service
+  {
+    "@type": "Service",
+    "@id": `${pageUrl}#service`,
+    "name": title,
+    "description": longDescription,
+    "provider": { "@id": "https://keresopartner.hu/#organization" },
+    "areaServed": { "@type": "Country", "name": "Hungary" },
+  },
+  // WebPage
+  {
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
+    "name": `${title} – KeresoPartner`,
+    "description": longDescription,
+    "url": pageUrl,
+    "isPartOf": { "@id": "https://keresopartner.hu/#website" },
+    "breadcrumb": { "@id": `${pageUrl}#breadcrumb` },
+    "inLanguage": "hu",
+  },
+  // ProfessionalService (provider)
+  {
+    "@type": "ProfessionalService",
+    "@id": "https://keresopartner.hu/#organization",
     "name": "KeresoPartner",
-    "url": "https://keresopartner.hu"
-  }
-};
+    "url": "https://keresopartner.hu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Budapest",
+      "addressCountry": "HU",
+    },
+  },
+];
+
+// --- Page-specific schema for weboldal-teljesitmeny ---
+if (slug === 'weboldal-teljesitmeny') {
+  // Enhance Service with alternateName, serviceType, and Offer catalog
+  const serviceNode = graph.find(n => n["@type"] === "Service")!;
+  serviceNode.alternateName = "Weboldal sebesség és Core Web Vitals optimalizálás";
+  serviceNode.serviceType = "Web Performance and Core Web Vitals Optimization";
+  serviceNode.hasOfferCatalog = {
+    "@type": "OfferCatalog",
+    "name": "Weboldal teljesítmény szolgáltatási csomagok",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "@id": `${pageUrl}#offer-audit`,
+        "name": "Teljesítmény-audit",
+        "description": "Teljes körű CWV diagnosztika terepi és laboratóriumi elemzéssel, gyökérokok feltérképezése, priorizált javítási ütemterv, harmadik féltől származó szkriptek leltára és tárhely-értékelés. Egyórás konzultáció az eredmények áttekintésére.",
+      },
+      {
+        "@type": "Offer",
+        "@id": `${pageUrl}#offer-implementation`,
+        "name": "Audit és megvalósítás",
+        "description": "Teljes diagnosztika plusz gyakorlati javítási munkák: szerveroptimalizálás, képkezelési folyamatok beállítása, JavaScript és CSS munkálatok, CLS javítások és bővítmények összevonása. Megvalósítás utáni laboratóriumi ellenőrzés és CrUX monitorozás.",
+      },
+      {
+        "@type": "Offer",
+        "@id": `${pageUrl}#offer-full`,
+        "name": "Teljes program",
+        "description": "Audit, megvalósítás és hat hónapos folyamatos teljesítménykezelés. Havi CWV monitorozás, visszaesések észlelése és javítása, új funkciók és bővítmények teljesítmény-felülvizsgálata, negyedéves újraauditálás és kiemelt támogatás.",
+      },
+    ],
+  };
+
+  // Enhance WebPage with speakable + lastReviewed
+  const webPageNode = graph.find(n => n["@type"] === "WebPage")!;
+  webPageNode.speakable = {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", "header .text-lg"],
+  };
+  webPageNode.lastReviewed = "2025-06-01";
+
+  // FAQPage
+  graph.push({
+    "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "A fejlesztőm azt mondja, gyors az oldal. Miért bízzak egy külső értékelésben?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A fejlesztők jellemzően csúcskategóriás hardveren és üvegszálas kapcsolaton tesztelnek. A Google a valódi felhasználók által tapasztalt sebességet méri; Magyarországon ez középkategóriás Android telefonokat és 4G hálózatot jelent. A terepi adatokat a Google saját eszközeiből kérjük le. Ha a fejlesztőjének igaza van, az adatok zöld mutatókat jeleznek majd. Ha nem, pontosan látni fogja, hol vannak a problémák.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Épp most építettük újjá az oldalt. Hogyan lehet máris lassú?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Az új oldalak gyakran lassabbak a régieknél. A modern oldalépítők, a nehéz sablonok és az újjáépítés során telepített 20 bővítmény mind súlyt adnak hozzá. Egy friss WordPress telepítés egy másodperc alatt betölt. A legtöbb újonnan épített magyar WordPress oldal 4–7 másodperc alatt tölt be.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Nem oldaná meg ezt egy bővítmény?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A gyorsítótárazó bővítmények egyetlen specifikus rétegben segítenek. Nem tudják kijavítani a lassú szerver válaszidőket, a 400 KB nem használt sablon CSS-t, a JavaScript végrehajtási sorrendjét vagy a reszponzív méretezés nélkül kiszolgált képeket. A bővítmény csak egy eszköz; az érték abban a diagnosztikai munkában rejlik, amely azonosítja a szükséges javításokat.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Tönkretehetik-e a weboldal működését a teljesítménybeli változtatások?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jogos aggodalom. Minden változtatást tesztelünk vizuális regresszióra és funkcionalitásra a bevezetés előtt. A változtatások fokozatosan kerülnek bevezetésre, és minden lépést ellenőrzünk. Minden változtatáshoz tartozik visszaállítási terv.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Mennyi idő, mire eredményeket látunk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A laboratóriumi mutatók még aznap javulnak. A terepi mutatók teljes frissülése 28 napot vesz igénybe, mivel a CrUX gördülő időablakot használ. A konverziós javulás azonnali; látogatói rögtön tapasztalják a gyorsabb oldalt. A rangsorolásra gyakorolt hatás jellemzően egy-három hónapon belül jelentkezik.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Kell-e tárhelyet váltanunk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Csak akkor, ha a szerver válaszideje a szűk keresztmetszet. Ha a TTFB tartósan 800 ms felett van, semmilyen frontend optimalizálás nem viszi 2,5 másodperc alá az LCP-t. A legtöbb magyar oldal esetében a lehetséges javítások 60–80%-a a frontend oldalon érhető el. A diagnosztika részeként értékeljük a tárhelyet, és csak akkor javaslunk költözést, ha az valóban szükséges.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Mi a különbség a PageSpeed pontszám és a Core Web Vitals között?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A PageSpeed Insights laboratóriumi szimuláció alapján ad pontszámot. A Core Web Vitals három specifikus mutató, amelyet valódi Chrome-felhasználóktól mérnek. A Google a valódi felhasználóktól származó CWV adatokat használja a rangsorolási döntésekhez, nem a laboratóriumi pontszámot. Mi azokra a terepi mutatókra összpontosítunk, amelyek a rangsorolást és a konverziókat is befolyásolják.",
+        },
+      },
+    ],
+  });
+
+  // HowTo — diagnostic process
+  graph.push({
+    "@type": "HowTo",
+    "@id": `${pageUrl}#howto`,
+    "name": "Hogyan találjuk meg, mi lassú valójában",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Terepi adatok kiindulási alapja",
+        "text": "Lekérjük a CrUX adatokat, és azonosítjuk, mely URL-csoportok teljesítenek rosszul. Ha a webhely nem rendelkezik elegendő forgalommal a CrUX-hoz, beállítjuk a Valós Felhasználói Monitorozást (RUM).",
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Laboratóriumi profilozás",
+        "text": "WebPageTest futtatása európai szerverről, Lighthouse CI a különböző oldaltípusokon, Chrome DevTools Performance panel és hálózati vízesés-elemzés.",
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Gyökérokok feltérképezése",
+        "text": "Minden problémás mutatónál visszakövetjük a hibát a forrásig. A különböző gyökérokok különböző javításokat igényelnek.",
+      },
+      {
+        "@type": "HowToStep",
+        "position": 4,
+        "name": "Priorizált javítási terv",
+        "text": "Minden problémát a hatás/ráfordítás arány alapján rangsorolunk. Csoportosítjuk őket gyors eredményekre, közepes javításokra és strukturális változtatásokra.",
+      },
+    ],
+  });
+
+  // TechArticle — CWV metric definitions
+  graph.push({
+    "@type": "TechArticle",
+    "@id": `${pageUrl}#tech-article`,
+    "headline": "A három mutató, amely alapján a Google megítéli webhelye sebességét",
+    "proficiencyLevel": "Beginner",
+    "inLanguage": "hu",
+    "about": [
+      { "@type": "Thing", "name": "Largest Contentful Paint (LCP)" },
+      { "@type": "Thing", "name": "Interaction to Next Paint (INP)" },
+      { "@type": "Thing", "name": "Cumulative Layout Shift (CLS)" },
+    ],
+    "isPartOf": { "@id": `${pageUrl}#webpage` },
+  });
+}
+
+const schema = { "@context": "https://schema.org", "@graph": graph };
 ---
 
 <BaseLayout title={`${title} – KeresoPartner`} description={longDescription} schema={schema}>
