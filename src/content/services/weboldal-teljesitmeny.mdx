@@ -19,7 +19,6 @@ import ProcessSteps from '@/components/service/ProcessSteps.astro';
 
 <ProcessSteps accentColor="orange" title="Hogyan azonosítjuk a lassulás valódi forrásait" items={[
   { step: "Valós adatok (field data) elemzése", description: "Lekérjük a CrUX adatokat, és azonosítjuk a hibás URL-csoportokat. Ha nincs elég forgalom, Real User Monitoring (RUM) rendszert állítunk be." },
-  { step: "Laboratóriumi profilozás", description: "WebPageTest mérések európai csomópontokról és Chrome DevTools elemzés a főszál (main-thread) szűk keresztmetszeteihez." },
   { step: "A gátló tényezők feltérképezése", description: "Minden mutatót visszavezetünk a forrásig. Azonosítjuk, hogy a késleltetést a szerver, a kódstruktúra vagy egy túlméretezett kép okozza-e." },
   { step: "Prioritizált javítási terv", description: "Minden hibát a várható hatás és a munkaigény arányában rangsorolunk. Sablonos tippek helyett azonnal kivitelezhető instrukciókat adunk." },
 ]} />
