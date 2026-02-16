@@ -2,131 +2,95 @@
 title: "Weboldal teljesítmény és Core Web Vitals optimalizálás"
 icon: "Zap"
 accentColor: "orange"
-longDescription: "A legtöbb sebességoptimalizálás megáll egy cache bővítménynél. Mi ott kezdjük, ahol ez a megközelítés kudarcot vall: annak gyökérok-elemzésével, hogy valójában mi lassú, amelyet azonnal végrehajtható, célzott javítások követnek."
+longDescription: "A legtöbb weboldal sebesség optimalizálás megáll egy gyorsítótár-bővítmény telepítése után. Mi ott vesszük fel a fonalat, ahol ez a módszer már kevésnek bizonyul: azonosítjuk a rangsorolást és sebességet gátló tényezőket, amiket azonnal végrehajtható, tűpontos javítások követnek."
 ---
 import Benefits from '@/components/service/Benefits.astro';
 import ProcessSteps from '@/components/service/ProcessSteps.astro';
 
 <Benefits accentColor="orange" title="Amit javítunk" items={[
-  "Szerver és tárhely: TTFB csökkentés, CDN, PHP frissítés, adatbázis-optimalizálás",
-  "Kritikus renderelési útvonal: CSS inlining, renderelést blokkoló szkriptek eltávolítása",
-  "Képek és média: WebP/AVIF konvertálás, reszponzív srcset, eager loading",
-  "JavaScript teljesítmény: harmadik féltől származó szkriptek auditálása, code splitting",
-  "Betűtípus-optimalizálás: saját szerverről kiszolgált fontok, font-display konfiguráció",
-  "CLS javítások: explicit méretek, helyfoglalás dinamikus tartalomnak, betűtípus-stabilizálás",
-  "Platform-specifikus: WordPress bővítmény-audit, Shoprenter sablon-optimalizálás, Shopify audit",
+  "Szerver és tárhely: TTFB csökkentés, adatbázis-optimalizálás, CDN konfiguráció, PHP verziófrissítések és tárhely-migrációs tanácsadás",
+  "Kritikus megjelenítési út: kritikus CSS beágyazás, renderelést blokkoló szkriptek kiiktatása, erőforrások intelligens előbetöltése",
+  "Képek és médiafájlok: WebP/AVIF konverzió, reszponzív képek srcset attribútumokkal, hajtás feletti nyitóképek eager betöltése",
+  "JavaScript teljesítmény: külső szkriptek auditja és optimalizálása, kódfelosztás (code splitting), böngésző főszálának tehermentesítése",
+  "Betűtípusok optimalizálása: önkiszolgáló Google Fonts, font-display konfiguráció, Latin Extended karakterkészlet szűkítés",
+  "CLS javítások: fix dimenziók minden médiaelemhez, fenntartott hely dinamikus tartalmaknak, betűtípus-betöltés stabilizálása",
+  "Platform-specifikus megoldások: WordPress bővítmény-audit, Shoprenter sablonszintű optimalizálás, Shopify témakód felülvizsgálat",
 ]} />
 
-<ProcessSteps accentColor="orange" title="Hogyan találjuk meg, mi lassú valójában" items={[
-  { step: "Terepi adatok kiindulási alapja", description: "Lekérjük a CrUX adatokat, és azonosítjuk, mely URL-csoportok teljesítenek rosszul. Ha webhelye nem rendelkezik elegendő forgalommal a CrUX-hoz, beállítjuk a Valós Felhasználói Monitorozást (RUM)." },
-  { step: "Laboratóriumi profilozás", description: "WebPageTest futtatása európai szerverről, Lighthouse CI a különböző oldaltípusokon, Chrome DevTools Performance panel és hálózati vízesés-elemzés." },
-  { step: "Gyökérokok feltérképezése", description: "Minden problémás mutatónál visszakövetjük a hibát a forrásig. Egy 4,2 másodperces LCP oka lehet egy 3 MB-os hero kép vagy 1,8 másodpercnyi szerver válaszidő. A különböző gyökérokok különböző javításokat igényelnek." },
-  { step: "Priorizált javítási terv", description: "Minden problémát a hatás/ráfordítás arány alapján rangsorolunk. Csoportosítjuk őket gyors eredményekre, közepes javításokra és strukturális változtatásokra. Konkrét, megvalósításra kész utasítások." },
+<ProcessSteps accentColor="orange" title="Hogyan azonosítjuk a lassulás valódi forrásait" items={[
+  { step: "Valós adatok (field data) elemzése", description: "Lekérjük a CrUX adatokat, és azonosítjuk a hibás URL-csoportokat. Ha nincs elég forgalom, Real User Monitoring (RUM) rendszert állítunk be." },
+  { step: "Laboratóriumi profilozás", description: "WebPageTest mérések európai csomópontokról és Chrome DevTools elemzés a főszál (main-thread) szűk keresztmetszeteihez." },
+  { step: "A gátló tényezők feltérképezése", description: "Minden mutatót visszavezetünk a forrásig. Azonosítjuk, hogy a késleltetést a szerver, a kódstruktúra vagy egy túlméretezett kép okozza-e." },
+  { step: "Prioritizált javítási terv", description: "Minden hibát a várható hatás és a munkaigény arányában rangsorolunk. Sablonos tippek helyett azonnal kivitelezhető instrukciókat adunk." },
 ]} />
 
-## Az oldalsebesség javításának üzleti érvei
+## Miért kritikus üzletileg a weblap betöltési sebesség?
 
-1. Az oldalélmény 2021 júniusa óta megerősített Google rangsorolási tényező. A nagy versenyhelyzetű iparágakban, ahol a tartalom minősége egyforma, a sebesség lehet a döntő tényező.
-2. A konverzióra gyakorolt hatás közvetlen. Minden egyes további másodpercnyi betöltési idő 7–10%-os veszteséget jelent a konverziós arányban. Egy 20%-os sebességjavulás minden látogatónál, minden nap kamatozik.
-3. A lassú webhelyek a feltérképezési keretet (crawl budget) is pazarolják. A Googlebot több időt tölt a lassú válaszokkal, és később indexeli az új oldalakat. Rosszabb helyezések, kevesebb forgalom, kevesebb konverzió, alacsonyabb bevétel; ezek a hatások hónapok alatt hatványozódnak.
+Az **oldalélmény** (a Google által mért technikai minőség) 2021 júniusa óta hivatalos rangsorolási szempont. Azokban a versengő iparágakban, ahol a tartalom minősége hasonló, a sebesség lesz a döntő tényező ön és a konkurencia között.
 
----
-
-## Kinek szól a szolgáltatás?
-
-**Webhelytulajdonosoknak, akiknek szemmel láthatóan lassú az oldaluk.** Az oldalak használhatóvá válása 4 másodpercnél tovább tart, a visszafordulási arányok emelkednek, és Ön tudja, hogy valami baj van, de nem tudja, mi az.
-
-**Vállalkozásoknak, amelyek nem feleltek meg a Core Web Vitals követelményeinek a Search Console-ban.** Sárga vagy piros státusz, oldalélmény-figyelmeztetések. Ön zöld mutatókat szeretne anélkül, hogy az oldal működése sérülne.
-
-**E-kereskedelmi üzemeltetőknek, akik konverziót veszítenek a sebesség miatt.** Shoprenter vagy WooCommerce webáruházak, ahol minden 100 ms késés csökkenti a kosárba helyezési arányt mobilon.
-
-**Fejlesztőknek, akiknek SEO-alapú útmutatásra van szükségük.** Ön tudja optimalizálni a kódot, de szüksége van valakire, aki érti, mely javítások befolyásolják a rangsorolást, és melyek csupán kozmetikai jellegűek.
-
-**Marketingcsapatoknak újratervezés után.** Az oldalt egy nehéz sablonra vagy oldalépítőre építették át, a teljesítmény visszaesett, és olyan helyreállítási tervre van szüksége, amely nem igényli a nulláról való újrakezdést.
+A konverziós hatás közvetlen: minden egyes plusz másodpercnél, amíg a látogató a fehér képernyőt nézi, **7–10%-kal csökken a vásárlási kedv**. A lassú betöltés rombolja a **felhasználói élményt**, növeli a visszafordulási arányt és pazarolja a feltérképezési keretet (crawl budget), ami végső soron gyengébb **keresési pozíciókhoz** és elmaradó bevételhez vezet.
 
 ---
 
-## Miért valószínűleg lassabb a weboldala, mint gondolná
+## Kinek szól ez a szolgáltatás?
 
-**WordPress és oldalépítő túlterheltség.** Az Elementor, a Divi és a WPBakery oldalanként 300–800 KB nem használt CSS-t és JavaScriptet generál. Az átlagos magyar WordPress oldal 25–40 aktív bővítménnyel fut. A Revolution Slider plusz Elementor plusz WooCommerce plusz WPML kombinációja agresszív beavatkozás nélkül 12 másodperces mobil LCP-t eredményez.
+**Láthatóan lassú oldalak tulajdonosainak.** Ha az oldalak betöltése 4 másodpercnél is tovább tart, ön is érzi, hogy valami nincs rendben, de nem tudja, pontosan hol a hiba.
 
-**Shoprenter korlátok.** Platformszintű JavaScript, amelyet a bolttulajdonosok nem módosíthatnak közvetlenül. A harmadik féltől származó alkalmazás-integrációk mindegyike 200–500 ms-mal növeli az interakciós késleltetést.
+**Vállalkozásoknak, amelyek elbuktak a Google tesztjén.** Ha a Search Console oldalélmény-hibákat jelez, egy **Core Web Vitals szakértő** segítségével **pozitív tartományba fordíthatja mutatóit**, megőrizve az oldal vizuális egységét.
 
-**Tárhely szűk keresztmetszetek.** A belépő szintű magyar osztott tárhelyek 800 ms és 2 másodperc közötti TTFB-t produkálnak, mielőtt a böngésző megkezdené a renderelést. Ezt semmilyen frontend optimalizálás nem tudja kompenzálni.
+**Webshop üzemeltetőknek.** Legyen szó WooCommerce vagy **Shoprenter sebesség javítás** feladatról, mobilon minden 100 ms késleltetés mérhetően csökkenti a kosárba helyezési arányt.
 
-**Képkezelési hibák.** 2–5 MB-os PNG formátumban kiszolgált hero képek az 50–200 KB-os WebP helyett. Reszponzív képek hiánya. A hajtás feletti tartalmakra alkalmazott lusta betöltés, ami késlelteti az LCP-t.
-
-**Harmadik féltől származó szkriptek okozta károk.** Google Tag Manager konténerek betöltéskor több mint 15 címkével. A renderelést blokkoló cookie hozzájárulási bannerek. Chat widgetek, amelyek minden oldalon betöltik a teljes alkalmazáscsomagot.
+**Fejlesztőknek, akiknek SEO-szemléletű iránymutatás kell.** Ön ért a kódhoz, mi pedig megmondjuk, melyik módosítás hozza a legtöbbet a rangsorolásban, és mi az, ami csak esztétika.
 
 ---
 
-## A három mutató, amely alapján a Google megítéli webhelye sebességét
+## Mi lassítja valójában a weboldalát?
 
-A Google három alapvető webes vitális mutató (Core Web Vitals) segítségével méri webhelyét, amelyeket valódi Chrome-felhasználóktól gyűjtenek egy 28 napos időszak alatt:
+**WordPress és oldalépítő túlsúly (Bloat).** Az Elementor, Divi és WPBakery egyenként 300–800 KB felesleges kódot generál oldalanként. A **WordPress sebesség optimalizálás** nélkül ezek a rendszerek önmagukat lassítják le.
 
-**LCP (Largest Contentful Paint):** mennyi idő telik el, amíg a fő tartalom láthatóvá válik. Jó: 2,5 másodperc alatt. Rossz: 4 másodperc felett. Ez az a pillanat, amikor a látogató „betöltöttnek" észleli az oldalt.
+**Shoprenter korlátok.** Olyan platformszintű JavaScript fájlokkal találkozunk, amiket a tulajdonosok nem tudnak közvetlenül módosítani. Mi ismerjük a specifikus **Shoprenter sebesség javítás** lehetőségeit ezeken a zárt rendszereken belül is.
 
-**INP (Interaction to Next Paint):** mennyire érződik reszponzívnak az oldal, amikor a felhasználók koppintanak, kattintanak vagy gépelnek. Jó: 200 ms alatt. Rossz: 500 ms felett. Ez 2024 márciusában váltotta fel a FID mutatót.
+**Tárhely szűk keresztmetszetek.** A belépő szintű magyar osztott tárhelyek gyakran 800 ms és 2 másodperc közötti **TTFB-t** (válaszidőt) produkálnak. Ezt a hátrányt semmilyen front-end optimalizálás nem tudja érdemben ellensúlyozni.
 
-**CLS (Cumulative Layout Shift):** mennyire ugrál a tartalom az oldal betöltése közben. Jó: 0,1 alatt. Rossz: 0,25 felett. Ez az a mutató, amit a felhasználók éreznek, de nem tudnak megnevezni.
+**Hibás képkezelés.** Gyakori hiba, hogy a **hajtás feletti nyitóképek** (úgynevezett Hero képek) 2–5 MB-os PNG fájlokként töltődnek be az 50–200 KB-os WebP formátum helyett.
 
-Ezek valódi felhasználóktól származó **terepi adatok**, nem laboratóriumi szimulációk. Egy webhely elérhet 95 pontot a Lighthouse-ban, de megbukhat a CWV teszten a valóságban, mert a valódi felhasználók lassabb eszközökön és mobilhálózatokon böngésznek. Mi a terepi adatokra optimalizálunk; a Google ezt használja a rangsoroláshoz, és látogatói ezt tapasztalják meg a valóságban.
-
----
-
-## Három együttműködési lehetőség
-
-**Teljesítmény-audit.** Teljes körű CWV diagnosztika terepi és laboratóriumi elemzéssel, gyökérokok feltérképezése, priorizált javítási ütemterv, harmadik féltől származó szkriptek leltára és tárhely-értékelés. Egyórás konzultáció az eredmények áttekintésére. A fejlesztője a részletes leírás alapján végzi el a megvalósítást, vagy külön állapodunk meg a kivitelezésről.
-
-**Audit és megvalósítás.** Teljes diagnosztika plusz gyakorlati javítási munkák: szerveroptimalizálás, képkezelési folyamatok beállítása, JavaScript és CSS munkálatok, CLS javítások és bővítmények összevonása. Megvalósítás utáni laboratóriumi ellenőrzés és CrUX monitorozás a 28 napos terepi adatfrissítési időszak alatt.
-
-**Teljes program.** Audit, megvalósítás és hat hónapos folyamatos teljesítménykezelés. Havi CWV monitorozás, visszaesések észlelése és javítása, új funkciók és bővítmények teljesítmény-felülvizsgálata, negyedéves újraauditálás és kiemelt támogatás.
-
-Nincsenek hűségidőhöz kötött szerződések. Havi alapú megbízás 30 napos felmondási idővel.
+**Külső szkriptek okozta lassulás.** Túlterhelt Google Tag Manager konténerek, renderelést blokkoló süti-bannerek és chat widgetek, amelyek feleslegesen terhelik a processzort.
 
 ---
 
-## A diagnózistól az ellenőrzött eredményekig
+## A három mutató, ami alapján a Google rangsorol
 
-**1. fázis: Diagnosztika (1–2. hét).** Terepi adatok kiindulási alapja, laboratóriumi profilozás 10–30 reprezentatív URL-en, gyökérok-elemzés és priorizált javítási ütemterv átadása. Amit Ön biztosít: Search Console hozzáférés, CMS adminisztrátori hozzáférés, tárhely hitelesítő adatok és az üzletileg kritikus oldalak listája.
+A Google a **Core Web Vitals** értékeit valós Chrome-felhasználók adatai alapján (**28 napos gördülő ablakban**) méri:
 
-**2. fázis: Megvalósítás (2–5. hét).** Először a gyors eredmények (ezek gyakran a teljes javulás 30–50%-át hozzák az első néhány napban), majd a közepes javítások prioritási sorrendben. Minden változtatást tesztelünk vizuális regresszióra és funkcionalitásra a továbblépés előtt. A fejlesztőjét igénylő javításokhoz: részletes leírás pontos fájlútvonalakkal és kódrészletekkel.
+1. **LCP javítás (Largest Contentful Paint):** Hogy a fő tartalom 2,5 mp alatt látható legyen – ez az a pont, amikor a látogató úgy érzi, az oldal betöltődött.
+2. **INP optimalizálás (Interaction to Next Paint):** Hogy az oldal azonnal reagáljon a kattintásokra és gépelésre, ne legyen „fagyott" érzete.
+3. **CLS hiba javítás (Cumulative Layout Shift):** Hogy megszűnjön a tartalom zavaró ugrálása betöltés közben.
 
-**3. fázis: Ellenőrzés (5–9. hét).** A CrUX terepi adatok monitorozása, ahogy frissülnek a javítás utáni felhasználói élmény adataival. Előtte/utána összehasonlító jelentés átadása. Visszaesési riasztások konfigurálása. A kész állapot: a terepi adatok zöld CWV státuszt mutatnak a célzott URL-csoportokon.
-
-[Kérje ingyenes Core Web Vitals állapotfelmérését &rarr;](/#kapcsolat)
+Ezek valós felhasználói (**field**) adatok, nem pedig laboratóriumi szimulációk. Előfordulhat, hogy egy weboldal 95-ös pontszámot kap a Lighthouse teszten, a valóságban mégis elbukik a **Core Web Vitals** méréseken, mert a látogatók lassabb eszközökön böngésznek. Mi a valós adatokra optimalizálunk.
 
 ---
 
-## Gyakori kérdések
+## Gyakran ismételt kérdések
 
-**A fejlesztőm azt mondja, gyors az oldal. Miért bízzak egy külső értékelésben?**
+**A fejlesztőm szerint hasít az oldal. Miért kellene külső szakértő?**
 
-A fejlesztők jellemzően csúcskategóriás hardveren és üvegszálas kapcsolaton tesztelnek. A Google a valódi felhasználók által tapasztalt sebességet méri; Magyarországon ez középkategóriás Android telefonokat és 4G hálózatot jelent. A terepi adatokat a Google saját eszközeiből kérjük le. Ha a fejlesztőjének igaza van, az adatok zöld mutatókat jeleznek majd. Ha nem, pontosan látni fogja, hol vannak a problémák.
+A fejlesztők gyakran bivalyerős gépeken, irodai neten nézik az oldalt. A Google viszont azt nézi, mit érez egy átlagos magyar felhasználó egy 4G-s mobilneten. Mi a Google saját (field) adatait használjuk: ha ott piros a jelzés, az ön látogatóinak a **felhasználói élmény** rossz lesz.
 
-**Épp most építettük újjá az oldalt. Hogyan lehet máris lassú?**
+**Most készült el az oldal, hogyhogy máris lassú?**
 
-Az új oldalak gyakran lassabbak a régieknél. A modern oldalépítők, a nehéz sablonok és az újjáépítés során telepített 20 bővítmény mind súlyt adnak hozzá. Egy friss WordPress telepítés egy másodperc alatt betölt. A legtöbb újonnan épített magyar WordPress oldal 4–7 másodperc alatt tölt be.
+Egy frissen telepített WordPress valóban gyors. De amint felkerül egy modern sablon, 20-30 bővítmény és pár kezeletlen kép, a betöltési idő rögtön 4–7 másodpercre ugrik.
 
-**Nem oldaná meg ezt egy bővítmény?**
+**Egy plugin nem oldja meg?**
 
-A gyorsítótárazó bővítmények egyetlen specifikus rétegben segítenek. Nem tudják kijavítani a lassú szerver válaszidőket, a 400 KB nem használt sablon CSS-t, a JavaScript végrehajtási sorrendjét vagy a reszponzív méretezés nélkül kiszolgált képeket. A bővítmény csak egy eszköz; az érték abban a diagnosztikai munkában rejlik, amely azonosítja a szükséges javításokat.
+A bővítmények csak tüneti kezelést adnak. Nem javítják ki a lassú szervert, a rossz kódszerkezetet vagy a hibás JavaScript-sorrendet. A szoftver csak egy eszköz, a szakértelem a diagnózisban van.
 
-**Tönkretehetik-e a weboldal működését a teljesítménybeli változtatások?**
+**A módosításoktól széteshet az oldal?**
 
-Jogos aggodalom. Minden változtatást tesztelünk vizuális regresszióra és funkcionalitásra a bevezetés előtt. A változtatások fokozatosan kerülnek bevezetésre, és minden lépést ellenőrzünk. Minden változtatáshoz tartozik visszaállítási terv.
+Minden lépésnél végzünk funkcionális teszteket és van visszagörgetési tervünk. Nem vágunk bele fejszével a kódba, hanem kontrollált finomhangolást végzünk.
 
-**Mennyi idő, mire eredményeket látunk?**
+**Mikor látható az eredmény?**
 
-A laboratóriumi mutatók még aznap javulnak. A terepi mutatók teljes frissülése 28 napot vesz igénybe, mivel a CrUX gördülő időablakot használ. A konverziós javulás azonnali; látogatói rögtön tapasztalják a gyorsabb oldalt. A rangsorolásra gyakorolt hatás jellemzően egy-három hónapon belül jelentkezik.
-
-**Kell-e tárhelyet váltanunk?**
-
-Csak akkor, ha a szerver válaszideje a szűk keresztmetszet. Ha a TTFB tartósan 800 ms felett van, semmilyen frontend optimalizálás nem viszi 2,5 másodperc alá az LCP-t. A legtöbb magyar oldal esetében a lehetséges javítások 60–80%-a a frontend oldalon érhető el. A diagnosztika részeként értékeljük a tárhelyet, és csak akkor javaslunk költözést, ha az valóban szükséges.
-
-**Mi a különbség a PageSpeed pontszám és a Core Web Vitals között?**
-
-A PageSpeed Insights laboratóriumi szimuláció alapján ad pontszámot. A Core Web Vitals három specifikus mutató, amelyet valódi Chrome-felhasználóktól mérnek. A Google a valódi felhasználóktól származó CWV adatokat használja a rangsorolási döntésekhez, nem a laboratóriumi pontszámot. Mi azokra a terepi mutatókra összpontosítunk, amelyek a rangsorolást és a konverziókat is befolyásolják.
+A laboratóriumi pontszámok azonnal javulnak, a látogatók pedig az első naptól élvezik a gyorsabb oldalt. A Google helyezésekben általában 1–3 hónap után látszik meg az eredmény.
 
 ---
 
