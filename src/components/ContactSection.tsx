@@ -100,7 +100,6 @@ export default function ContactSection() {
           Kérdezzen közvetlenül <span className="text-[hsl(var(--primary))]">tőlünk!</span>
           </h2>
           <p className="text-slate-600">
-            Ird meg, miben segithetunk, es 24 oran belul valaszolunk. Írja meg nekünk, miben segíthetünk, és 24 órán belül válaszolunk.
           </p>
         </div>
 
