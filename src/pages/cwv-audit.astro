@@ -1,0 +1,589 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Core Web Vitals Audit – KeresoPartner"
+  description="Ellenőrizd weboldalad teljesítményét és Core Web Vitals mutatóit Google PageSpeed Insights segítségével. Mobil és asztali összehasonlítás, crawl-hatékonysági elemzés."
+>
+  <Navbar />
+
+  <header class="border-b border-[hsl(var(--border))] bg-[hsl(var(--card))] pt-28 pb-12">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="mb-4 font-[var(--font-display)] text-4xl font-bold tracking-tight sm:text-5xl">
+        <span class="gradient-text">CWV Audit</span>
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-[hsl(var(--muted-foreground))]">
+        Ellenőrizd weboldalad Core Web Vitals mutatóit, crawl-hatékonyságát és kapj priorizált SEO javaslatokat Google PageSpeed Insights alapján.
+      </p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-10">
+    <div class="audit-wrap">
+
+      <!-- URL Input -->
+      <div class="input-card">
+        <form id="audit-form">
+          <div class="field">
+            <label for="audit-url">Weboldal URL</label>
+            <input type="url" id="audit-url" name="url" placeholder="https://pelda.hu" required />
+          </div>
+          <div class="field hidden" id="password-field">
+            <label for="audit-password">Audit jelszó</label>
+            <input type="password" id="audit-password" name="password" placeholder="Éles környezetben szükséges" />
+          </div>
+          <button type="submit" id="audit-btn">
+            <span id="btn-text">Audit indítása</span>
+            <span id="btn-loading" class="hidden">Elemzés folyamatban…</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Loading -->
+      <div id="loading-state" class="status-card hidden">
+        <div class="spinner"></div>
+        <p class="status-title">PageSpeed Insights adatok lekérése…</p>
+        <p class="status-sub">Mobil és asztali teljesítmény elemzése</p>
+      </div>
+
+      <!-- Error -->
+      <div id="error-state" class="error-card hidden">
+        <div class="error-icon">⚠️</div>
+        <h3>Audit sikertelen</h3>
+        <p id="error-message"></p>
+        <button onclick="location.reload()" class="retry-btn">Újrapróbálás</button>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="hidden">
+
+        <!-- Score cards -->
+        <div class="score-grid">
+          <div class="score-card">
+            <h3>Mobil teljesítmény</h3>
+            <div class="score-circle" id="circle-mobile"><span class="score-val">--</span></div>
+            <div class="score-rows">
+              <div class="score-row"><span>Teljesítmény</span><strong id="m-perf">--</strong></div>
+              <div class="score-row"><span>Akadálymentesség</span><strong id="m-a11y">--</strong></div>
+              <div class="score-row"><span>Best Practices</span><strong id="m-bp">--</strong></div>
+              <div class="score-row"><span>SEO</span><strong id="m-seo">--</strong></div>
+            </div>
+          </div>
+
+          <div class="score-card">
+            <h3>Asztali teljesítmény</h3>
+            <div class="score-circle" id="circle-desktop"><span class="score-val">--</span></div>
+            <div class="score-rows">
+              <div class="score-row"><span>Teljesítmény</span><strong id="d-perf">--</strong></div>
+              <div class="score-row"><span>Akadálymentesség</span><strong id="d-a11y">--</strong></div>
+              <div class="score-row"><span>Best Practices</span><strong id="d-bp">--</strong></div>
+              <div class="score-row"><span>SEO</span><strong id="d-seo">--</strong></div>
+            </div>
+          </div>
+
+          <div class="score-card">
+            <h3>Crawl hatékonyság</h3>
+            <div class="score-circle" id="circle-crawl"><span class="score-val">--</span></div>
+            <div class="score-rows">
+              <div class="score-row"><span>Oldalméret</span><strong id="page-weight">--</strong></div>
+              <div class="score-row"><span>Átirányítások</span><strong id="redirect-count">--</strong></div>
+              <div class="score-row"><span>Lassú erőforrások</span><strong id="slow-count">--</strong></div>
+              <div class="score-row"><span>Render-blokkoló</span><strong id="rb-count">--</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Core Web Vitals -->
+        <div class="section-card">
+          <h2>Core Web Vitals</h2>
+
+          <div class="cwv-device">
+            <h3>Mobil</h3>
+            <div class="cwv-grid">
+              <div class="cwv-cell" id="m-lcp"><div class="cwv-head"><span>LCP</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;2.5s</span></div>
+              <div class="cwv-cell" id="m-fid"><div class="cwv-head"><span>FID</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;100ms</span></div>
+              <div class="cwv-cell" id="m-cls"><div class="cwv-head"><span>CLS</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;0.1</span></div>
+              <div class="cwv-cell" id="m-ttfb"><div class="cwv-head"><span>TTFB</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;800ms</span></div>
+            </div>
+          </div>
+
+          <div class="cwv-device">
+            <h3>Asztali</h3>
+            <div class="cwv-grid">
+              <div class="cwv-cell" id="d-lcp"><div class="cwv-head"><span>LCP</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;2.5s</span></div>
+              <div class="cwv-cell" id="d-fid"><div class="cwv-head"><span>FID</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;100ms</span></div>
+              <div class="cwv-cell" id="d-cls"><div class="cwv-head"><span>CLS</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;0.1</span></div>
+              <div class="cwv-cell" id="d-ttfb"><div class="cwv-head"><span>TTFB</span><span class="light"></span></div><span class="cwv-val">--</span><span class="cwv-target">&lt;800ms</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LCP Elements -->
+        <div class="section-card hidden" id="lcp-section">
+          <h2>LCP elemek</h2>
+          <div class="lcp-grid">
+            <div class="lcp-box">
+              <h4>Mobil LCP elem</h4>
+              <code id="m-lcp-sel">--</code>
+              <p id="m-lcp-label"></p>
+            </div>
+            <div class="lcp-box">
+              <h4>Asztali LCP elem</h4>
+              <code id="d-lcp-sel">--</code>
+              <p id="d-lcp-label"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="section-card">
+          <h2>SEO Teendők</h2>
+          <div id="recs-list"></div>
+        </div>
+
+        <!-- Detailed Issues -->
+        <div class="section-card hidden" id="issues-section">
+          <h2>Részletes problémák</h2>
+
+          <div class="hidden" id="slow-section">
+            <h3>Lassú erőforrások (&gt;500ms)</h3>
+            <div id="slow-list" class="issue-list"></div>
+          </div>
+
+          <div class="hidden" id="rb-section">
+            <h3>Render-blokkoló erőforrások</h3>
+            <div id="rb-list" class="issue-list"></div>
+          </div>
+
+          <div class="hidden" id="rc-section">
+            <h3>Átirányítási láncok</h3>
+            <div id="rc-list" class="issue-list"></div>
+          </div>
+        </div>
+
+        <p class="audit-meta">Elemzés időpontja: <span id="audit-ts">--</span></p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const THRESH = {
+    lcp:  { good: 2500,  poor: 4000 },
+    fid:  { good: 100,   poor: 300 },
+    cls:  { good: 0.1,   poor: 0.25 },
+    ttfb: { good: 800,   poor: 1800 },
+    score:{ good: 90,    poor: 75 },
+  } as const;
+
+  type Metric = keyof typeof THRESH;
+
+  function rating(val: number, metric: Metric) {
+    const t = THRESH[metric];
+    if (metric === 'score') return val >= t.good ? 'good' : val >= t.poor ? 'needs-improvement' : 'poor';
+    return val <= t.good ? 'good' : val <= t.poor ? 'needs-improvement' : 'poor';
+  }
+
+  function fmt(val: number, metric: string) {
+    if (['lcp','ttfb','fcp'].includes(metric)) return val >= 1000 ? `${(val/1000).toFixed(2)}s` : `${Math.round(val)}ms`;
+    if (metric === 'cls') return val.toFixed(3);
+    if (['fid','inp'].includes(metric)) return `${Math.round(val)}ms`;
+    return String(val);
+  }
+
+  function fmtBytes(b: number) {
+    if (!b) return '0 B';
+    const u = ['B','KB','MB','GB'], i = Math.floor(Math.log(b)/Math.log(1024));
+    return `${parseFloat((b/1024**i).toFixed(2))} ${u[i]}`;
+  }
+
+  function get(obj: any, path: string, def: any = null) {
+    return path.split('.').reduce((a, k) => (a == null ? def : a[k] !== undefined ? a[k] : def), obj);
+  }
+
+  function setCircle(id: string, score: number) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.querySelector('.score-val')!.textContent = String(score);
+    el.className = `score-circle ${rating(score, 'score')}`;
+  }
+
+  function setCWV(id: string, val: number, metric: Metric) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    (el.querySelector('.cwv-val') as HTMLElement).textContent = fmt(val, metric);
+    const light = el.querySelector('.light') as HTMLElement;
+    if (light) light.className = `light ${rating(val, metric)}`;
+  }
+
+  function recCard(rec: any) {
+    const colors: Record<string, string> = {
+      critical: 'rec-critical', high: 'rec-high', medium: 'rec-medium', low: 'rec-low',
+    };
+    const icons: Record<string, string> = {
+      critical: '🚨', high: '⚠️', medium: '💡', low: 'ℹ️',
+    };
+    return `<div class="rec-card ${colors[rec.priority]}">
+      <div class="rec-meta">
+        <span>${icons[rec.priority]}</span>
+        <span class="rec-badge">${rec.priority.toUpperCase()}</span>
+        <span class="rec-cat">${rec.category}</span>
+      </div>
+      <h4>${rec.title}</h4>
+      <p>${rec.description}</p>
+      <div class="rec-impact"><strong>Hatás:</strong> ${rec.impact}</div>
+    </div>`;
+  }
+
+  // Show password field in production
+  if (!['localhost','127.0.0.1'].includes(location.hostname)) {
+    document.getElementById('password-field')?.classList.remove('hidden');
+  }
+
+  const form = document.getElementById('audit-form')!;
+  const loading = document.getElementById('loading-state')!;
+  const results = document.getElementById('results')!;
+  const errorEl = document.getElementById('error-state')!;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form as HTMLFormElement);
+    const url = fd.get('url') as string;
+    const password = fd.get('password') as string;
+
+    loading.classList.remove('hidden');
+    results.classList.add('hidden');
+    errorEl.classList.add('hidden');
+    document.getElementById('btn-text')!.classList.add('hidden');
+    document.getElementById('btn-loading')!.classList.remove('hidden');
+    (document.getElementById('audit-btn') as HTMLButtonElement).disabled = true;
+
+    try {
+      const qs = new URLSearchParams({ url });
+      if (password) qs.set('password', password);
+      const res = await fetch(`/api/audit?${qs}`);
+      const data = await res.json();
+
+      if (!res.ok) throw Object.assign(new Error(data.error || `HTTP ${res.status}`), { data });
+
+      // Scores
+      setCircle('circle-mobile',  get(data, 'scores.mobile.performance', 0));
+      setCircle('circle-desktop', get(data, 'scores.desktop.performance', 0));
+      setCircle('circle-crawl',   get(data, 'crawlEfficiency.score', 0));
+
+      ['perf','a11y','bp','seo'].forEach((k, i) => {
+        const keys = ['performance','accessibility','bestPractices','seo'];
+        document.getElementById(`m-${k}`)!.textContent = String(get(data, `scores.mobile.${keys[i]}`, 0));
+        document.getElementById(`d-${k}`)!.textContent = String(get(data, `scores.desktop.${keys[i]}`, 0));
+      });
+
+      document.getElementById('page-weight')!.textContent   = fmtBytes(get(data, 'crawlEfficiency.totalByteWeight', 0));
+      document.getElementById('redirect-count')!.textContent = String(get(data, 'crawlEfficiency.redirectCount', 0));
+      document.getElementById('slow-count')!.textContent     = String(get(data, 'crawlEfficiency.slowResourceCount', 0));
+      document.getElementById('rb-count')!.textContent       = String(get(data, 'crawlEfficiency.renderBlockingCount', 0));
+
+      // CWV
+      (['lcp','fid','cls','ttfb'] as Metric[]).forEach(m => {
+        setCWV(`m-${m}`, get(data, `cwv.mobile.${m}`, 0), m);
+        setCWV(`d-${m}`, get(data, `cwv.desktop.${m}`, 0), m);
+      });
+
+      // LCP elements
+      const mLCP = get(data, 'lcpElements.mobile', null);
+      const dLCP = get(data, 'lcpElements.desktop', null);
+      if (mLCP || dLCP) {
+        document.getElementById('lcp-section')!.classList.remove('hidden');
+        if (mLCP) {
+          document.getElementById('m-lcp-sel')!.textContent  = get(mLCP, 'node.selector', 'Ismeretlen');
+          document.getElementById('m-lcp-label')!.textContent = get(mLCP, 'node.nodeLabel', '');
+        }
+        if (dLCP) {
+          document.getElementById('d-lcp-sel')!.textContent  = get(dLCP, 'node.selector', 'Ismeretlen');
+          document.getElementById('d-lcp-label')!.textContent = get(dLCP, 'node.nodeLabel', '');
+        }
+      }
+
+      // Recommendations
+      const recs = get(data, 'recommendations', []);
+      const recsList = document.getElementById('recs-list')!;
+      recsList.innerHTML = recs.length
+        ? recs.map(recCard).join('')
+        : '<p class="no-issues">Nem találtunk kritikus problémát. Az oldal jól optimalizált!</p>';
+
+      // Issues
+      const issues = get(data, 'issues', {});
+      const slow = get(issues, 'slowResources', []);
+      const rb   = get(issues, 'renderBlocking', []);
+      const rc   = get(issues, 'redirectChains', []);
+
+      if (slow.length || rb.length || rc.length) {
+        document.getElementById('issues-section')!.classList.remove('hidden');
+      }
+      if (slow.length) {
+        document.getElementById('slow-section')!.classList.remove('hidden');
+        document.getElementById('slow-list')!.innerHTML = slow.map((r: any) =>
+          `<div class="issue-item"><code>${r.url?.substring(0,90)}${r.url?.length>90?'…':''}</code><span class="issue-meta">${r.responseTime}ms · ${fmtBytes(r.transferSize||0)}</span></div>`
+        ).join('');
+      }
+      if (rb.length) {
+        document.getElementById('rb-section')!.classList.remove('hidden');
+        document.getElementById('rb-list')!.innerHTML = rb.map((r: any) =>
+          `<div class="issue-item"><code>${r.url?.substring(0,90)}${r.url?.length>90?'…':''}</code><span class="issue-meta">${fmtBytes(r.totalBytes||0)} · ${Math.round(r.wastedMs||0)}ms pazarolva</span></div>`
+        ).join('');
+      }
+      if (rc.length) {
+        document.getElementById('rc-section')!.classList.remove('hidden');
+        document.getElementById('rc-list')!.innerHTML = rc.map((c: any) =>
+          `<div class="issue-item"><div class="chain">${(c.chain||[]).map((u: string,i: number) => `<span>${u?.substring(0,50)}${u?.length>50?'…':''}</span>${i<c.chain.length-1?'<span class="arrow">→</span>':''}`).join('')}</div><span class="issue-meta">${Math.round(c.wastedMs||0)}ms pazarolva</span></div>`
+        ).join('');
+      }
+
+      document.getElementById('audit-ts')!.textContent = new Date(get(data, 'timestamp', new Date().toISOString())).toLocaleString('hu-HU');
+
+      loading.classList.add('hidden');
+      results.classList.remove('hidden');
+
+    } catch (err: any) {
+      loading.classList.add('hidden');
+      errorEl.classList.remove('hidden');
+      document.getElementById('error-message')!.textContent = err.message || 'Váratlan hiba történt';
+      errorEl.querySelectorAll('.error-suggestion').forEach(n => n.remove());
+      if (err.data?.suggestion) {
+        const s = document.createElement('div');
+        s.className = 'error-suggestion';
+        s.innerHTML = `<strong>Javaslat:</strong><br>${err.data.suggestion.replace(/\n/g,'<br>')}`;
+        errorEl.appendChild(s);
+      }
+    } finally {
+      document.getElementById('btn-text')!.classList.remove('hidden');
+      document.getElementById('btn-loading')!.classList.add('hidden');
+      (document.getElementById('audit-btn') as HTMLButtonElement).disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .audit-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── Input card ── */
+  .input-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .input-card form { display: flex; flex-direction: column; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .field label { font-weight: 600; color: hsl(var(--foreground)); font-size: 0.9rem; }
+  .field input {
+    padding: 0.75rem 1rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: 8px;
+    font-size: 1rem;
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition: border-color 0.2s;
+  }
+  .field input:focus { outline: none; border-color: hsl(var(--primary)); }
+  button[type="submit"] {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  button[type="submit"]:hover { opacity: 0.9; }
+  button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── Status / loading ── */
+  .status-card {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 4px solid hsl(var(--border));
+    border-top-color: hsl(var(--primary));
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .status-title { font-weight: 600; color: hsl(var(--foreground)); margin: 0; }
+  .status-sub   { color: hsl(var(--muted-foreground)); font-size: 0.9rem; margin: 0.25rem 0 0; }
+
+  /* ── Error ── */
+  .error-card {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  .error-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .error-card h3 { color: #dc2626; margin: 0 0 0.5rem; }
+  .error-card p  { color: #7f1d1d; margin: 0 0 1.5rem; }
+  .retry-btn {
+    background: #dc2626; color: #fff; border: none;
+    padding: 0.75rem 1.5rem; border-radius: 8px;
+    font-weight: 600; cursor: pointer;
+  }
+  .error-suggestion {
+    background: #fff; border: 1px solid #fca5a5;
+    border-radius: 8px; padding: 1rem;
+    margin: 1rem auto 0; max-width: 600px;
+    text-align: left; color: #7f1d1d;
+    font-size: 0.9rem; line-height: 1.6;
+  }
+
+  /* ── Score grid ── */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .score-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .score-card h3 { margin: 0 0 1rem; font-size: 1rem; color: hsl(var(--foreground)); }
+  .score-circle {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 4px solid hsl(var(--border));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.4rem; font-weight: bold;
+  }
+  .score-circle.good              { border-color: #22c55e; color: #22c55e; }
+  .score-circle.needs-improvement { border-color: #f59e0b; color: #f59e0b; }
+  .score-circle.poor              { border-color: #ef4444; color: #ef4444; }
+  .score-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+  .score-row {
+    display: flex; justify-content: space-between;
+    padding: 0.4rem 0.6rem;
+    background: hsl(var(--muted));
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: hsl(var(--muted-foreground));
+  }
+  .score-row strong { color: hsl(var(--foreground)); }
+
+  /* ── Section card ── */
+  .section-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .section-card h2 { margin: 0 0 1.25rem; font-size: 1.2rem; color: hsl(var(--foreground)); }
+  .section-card h3 { margin: 1rem 0 0.75rem; font-size: 0.95rem; color: hsl(var(--muted-foreground)); }
+
+  /* ── CWV grid ── */
+  .cwv-device { margin-bottom: 1.25rem; }
+  .cwv-device h3 { margin: 0 0 0.75rem; font-size: 0.9rem; font-weight: 600; color: hsl(var(--foreground)); }
+  .cwv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem;
+  }
+  .cwv-cell {
+    background: hsl(var(--muted));
+    border-radius: 8px;
+    padding: 0.875rem;
+    text-align: center;
+  }
+  .cwv-head {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem; font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+  .light {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: hsl(var(--border));
+  }
+  .light.good              { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.5); }
+  .light.needs-improvement { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+  .light.poor              { background: #ef4444; box-shadow: 0 0 6px rgba(239,68,68,0.5); }
+  .cwv-val    { display: block; font-size: 1.1rem; font-weight: bold; color: hsl(var(--foreground)); }
+  .cwv-target { display: block; font-size: 0.7rem; color: hsl(var(--muted-foreground)); margin-top: 0.2rem; }
+
+  /* ── LCP section ── */
+  .lcp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .lcp-box { background: hsl(var(--muted)); border-radius: 8px; padding: 1rem; }
+  .lcp-box h4 { margin: 0 0 0.5rem; font-size: 0.9rem; color: hsl(var(--foreground)); }
+  .lcp-box code {
+    display: block;
+    background: hsl(var(--foreground)); color: hsl(var(--background));
+    padding: 0.4rem 0.6rem; border-radius: 4px;
+    font-size: 0.8rem; word-break: break-all; margin-bottom: 0.4rem;
+  }
+  .lcp-box p { margin: 0; font-size: 0.85rem; color: hsl(var(--muted-foreground)); }
+
+  /* ── Recommendations ── */
+  #recs-list { display: flex; flex-direction: column; gap: 0.875rem; }
+  .rec-card  { border-radius: 8px; padding: 1.25rem; border-left: 4px solid; }
+  .rec-critical { background: #fef2f2; border-color: #ef4444; color: #7f1d1d; }
+  .rec-high     { background: #fff7ed; border-color: #f97316; color: #7c2d12; }
+  .rec-medium   { background: #fefce8; border-color: #eab308; color: #713f12; }
+  .rec-low      { background: #eff6ff; border-color: hsl(var(--primary)); color: #1e3a5f; }
+  .rec-meta { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.5rem; font-size: 0.8rem; }
+  .rec-badge { font-weight: bold; padding: 0.2rem 0.4rem; border-radius: 4px; background: rgba(0,0,0,0.1); }
+  .rec-cat   { opacity: 0.75; }
+  .rec-card h4 { margin: 0 0 0.4rem; font-size: 1rem; }
+  .rec-card p  { margin: 0 0 0.6rem; line-height: 1.5; font-size: 0.9rem; opacity: 0.9; }
+  .rec-impact  { font-size: 0.85rem; opacity: 0.85; }
+  .no-issues { text-align: center; padding: 2rem; color: #22c55e; font-size: 1rem; margin: 0; }
+
+  /* ── Issue lists ── */
+  .issue-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .issue-item {
+    background: hsl(var(--muted));
+    border-radius: 6px; padding: 0.75rem;
+  }
+  .issue-item code {
+    display: block; font-size: 0.82rem;
+    color: hsl(var(--foreground)); word-break: break-all; margin-bottom: 0.2rem;
+  }
+  .issue-meta { font-size: 0.78rem; color: hsl(var(--muted-foreground)); }
+  .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; }
+  .chain span { font-size: 0.82rem; color: hsl(var(--foreground)); }
+  .arrow { color: hsl(var(--muted-foreground)); }
+
+  .audit-meta { text-align: center; color: hsl(var(--muted-foreground)); font-size: 0.85rem; margin-top: 1.5rem; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 640px) {
+    .cwv-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
