@@ -10,7 +10,7 @@ export const GET = async ({ request }: { request: Request }) => {
     });
   }
 
-  const PSI_API_KEY = import.meta.env.PSI_API_KEY;
+  const PSI_API_KEY = process.env.PSI_API_KEY;
 
   if (!PSI_API_KEY || PSI_API_KEY === 'your_pagespeed_insights_api_key_here') {
     return new Response(JSON.stringify({
