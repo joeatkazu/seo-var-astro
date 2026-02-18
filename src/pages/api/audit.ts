@@ -1,18 +1,7 @@
 export const prerender = false;
 
 export const GET = async ({ request }: { request: Request }) => {
-  const params = new URL(request.url).searchParams;
-  const url = params.get('url');
-  const password = params.get('password');
-
-  // Optional password protection in production
-  const expectedPassword = import.meta.env.AUDIT_PASSWORD;
-  if (import.meta.env.PROD && expectedPassword && password !== expectedPassword) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  const url = new URL(request.url).searchParams.get('url');
 
   if (!url) {
     return new Response(JSON.stringify({ error: 'URL megadása kötelező' }), {

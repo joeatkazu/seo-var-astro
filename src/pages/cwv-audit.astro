@@ -31,10 +31,6 @@ import Footer from '@/components/Footer.astro';
             <label for="audit-url">Weboldal URL</label>
             <input type="url" id="audit-url" name="url" placeholder="https://pelda.hu" required />
           </div>
-          <div class="field hidden" id="password-field">
-            <label for="audit-password">Audit jelszó</label>
-            <input type="password" id="audit-password" name="password" placeholder="Éles környezetben szükséges" />
-          </div>
           <button type="submit" id="audit-btn">
             <span id="btn-text">Audit indítása</span>
             <span id="btn-loading" class="hidden">Elemzés folyamatban…</span>
@@ -240,11 +236,6 @@ import Footer from '@/components/Footer.astro';
     </div>`;
   }
 
-  // Show password field in production
-  if (!['localhost','127.0.0.1'].includes(location.hostname)) {
-    document.getElementById('password-field')?.classList.remove('hidden');
-  }
-
   const form = document.getElementById('audit-form')!;
   const loading = document.getElementById('loading-state')!;
   const results = document.getElementById('results')!;
@@ -254,7 +245,6 @@ import Footer from '@/components/Footer.astro';
     e.preventDefault();
     const fd = new FormData(form as HTMLFormElement);
     const url = fd.get('url') as string;
-    const password = fd.get('password') as string;
 
     loading.classList.remove('hidden');
     results.classList.add('hidden');
@@ -265,7 +255,6 @@ import Footer from '@/components/Footer.astro';
 
     try {
       const qs = new URLSearchParams({ url });
-      if (password) qs.set('password', password);
       const res = await fetch(`/api/audit?${qs}`);
       const data = await res.json();
 
