@@ -1,0 +1,130 @@
+---
+title: "Core Web Vitals és AI-láthatóság: először a kritikus hibákat javítsa, utána a tartalmat"
+date: "2026. február 26."
+author: "Joe"
+readTime: "8 perc olvasás"
+coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80"
+tags: ["Core Web Vitals", "AI-láthatóság", "SEO"]
+---
+
+Cégvezetőként biztosan nem akar hónapokat arra áldozni, hogy milliszekundumokat faragjon le a weboldala betöltési idejéből, majd a végén szembesüljön vele, hogy a befektetett munka semmilyen mérhető eredménnyel nem járt.
+
+A Core Web Vitals (CWV) mutatóknál gyakran pontosan ez a helyzet. Ha a weboldala már az „elég jó" kategóriába esik, a további technikai optimalizálás ritkán hoz extra láthatóságot az AI-alapú keresőkben.
+
+Ha viszont az értékek kritikus szinten vannak, a CWV a háttérben észrevétlenül megakadályozhatja, hogy az oldala egyáltalán hivatkozásként (forrásként) jelenjen meg, mivel az AI-rendszerek számára megbízhatatlanná teszi a tartalom beolvasását.
+
+Ha egy gyors és gyakorlatias kiindulópontot keres, futtassa le a legfontosabb aloldalát az ingyenes Core Web Vitals teljesítmény-ellenőrzőnkkel: [https://keresopartner.hu/cwv-audit/](https://keresopartner.hu/cwv-audit/)
+
+Ennek a cikknek a célja teljesen egyértelmű: segítünk önnek azonosítani, hogy mi az, amit ténylegesen érdemes javítani, és pontosan milyen sorrendben.
+
+## Mit mérnek a Core Web Vitals mutatók?
+
+A Core Web Vitals a Google által meghatározott teljesítménymutatók csoportja, amelyek a valós felhasználói élményt mérik egy adott weboldalon. Három fő elemből állnak:
+
+* **LCP (Largest Contentful Paint):** Azt mutatja meg, mennyi idő alatt töltődik be a képernyőn a legnagyobb látható elem (ami leggyakrabban egy fő kép, egy kiemelt címsor vagy egy terjedelmesebb szöveges blokk).
+  * **Jó érték:** 2,5 másodperc alatt.
+  * **Kritikus érték:** 4,0 másodperc felett.
+* **INP (Interaction to Next Paint):** Azt méri, milyen gyorsan reagál az oldal, amikor a látogató kattint, koppint vagy gépel valamit.
+  * **Jó érték:** 200 ezredmásodperc alatt.
+  * **Kritikus érték:** 500 ezredmásodperc felett.
+* **CLS (Cumulative Layout Shift):** Azt vizsgálja, hogy ugrál-e a weblap betöltés közben (például elmozduló gombok, elcsúszó szövegek, a tartalmat hirtelen lejjebb toló bannerek).
+  * **Jó érték:** 0,1 alatt.
+  * **Kritikus érték:** 0,25 felett.
+
+A Google ezeket a metrikákat URL-csoportokra vetítve, a látogatások 75. percentilise alapján határozza meg.
+
+Mit jelent ez a gyakorlatban?
+
+A jelentésekben szereplő adatok annak a 25 százaléknyi felhasználónak a tapasztalatát tükrözik, akik a leglassabb betöltést érzékelték az oldalon. A rendszer ráadásul szigorú: egy adott URL-csoport végső minősítését mindig a legrosszabbul teljesítő mutató határozza meg.
+
+## Mit mutatnak az adatok (és mit jelent ez a költségvetésére nézve)?
+
+Egy 2026. januári elemzés 107 352 olyan weboldalt vizsgált meg, amelyek kiemelkedő pozíciót értek el a Google AI Overviews és AI Mode felületein.
+
+Az eredmények magukért beszélnek: a kutatás csupán enyhe negatív összefüggést mutatott ki a Core Web Vitals és az AI-láthatóság között, érdemi pozitív kapcsolatot viszont egyáltalán nem talált.
+
+A legfontosabb gyakorlati tanulságot ez az egyetlen mondat foglalja össze a legjobban:
+
+*"A jó teljesítmény nem jelent versenyelőnyt. A súlyos technikai hiba viszont egyértelmű hátrányt okoz."*
+
+Kezelje tehát a Core Web Vitals mutatókat úgy, mint egy alapvető biztonsági követelményt. Javítsa ki azt, ami egyértelműen hibás.
+
+Amint biztonságosan a kritikus küszöbértékek fölé ért, a magasabb megtérülést már nem a tökéletes technikai pontszámok hajszolása, hanem az hozza el, ha a tartalma érthető, és pontosan azt adja a látogatónak, amit az keres.
+
+## 60 perces akcióterv cégvezetőknek
+
+1. **Válasszon ki 5-10 stratégiai fontosságú, bevételt hozó oldalt kezdésként:** Kezdje a főoldallal, a legfontosabb szolgáltatás oldalakkal, a kiemelt termék- vagy kategória oldalakkal, az ajánlatkérő céloldalakkal és a fő kapcsolati oldallal.
+
+2. **Futtassa le az ellenőrzést:** Vizsgálja meg mindegyik kiválasztott URL-t az ingyenes Core Web Vitals teljesítmény-ellenőrzőnkkel: [https://keresopartner.hu/cwv-audit/](https://keresopartner.hu/cwv-audit/)
+
+3. **Keressen ismétlődő hibákat:** Ha használja a Google Search Console-t, nyissa meg a Core Web Vitals jelentést. Ne csak az egyes URL-eket nézze meg egyenként, hanem keressen ismétlődő mintázatokat az oldaltípusok (sablonok) alapján.
+
+4. **Jelölje ki a kritikus problémákat:** Karikázzon be mindent, ami egyértelműen a Gyenge tartományba esik (például LCP 4 másodperc felett, INP 500 ezredmásodperc felett, CLS 0,25 felett). Ezeknek a javítása hozza a legmagasabb megtérülést, mivel a kritikus értékek a hagyományos keresési helyezéseket és az AI-láthatóságot egyaránt gátolják.
+
+5. **Fókuszáljon a sablonszintű javításokra:** Ha 30 aloldal ugyanazt a felépítést vagy sablont használja, egyetlen központi technikai módosítással mind a 30 oldalon azonnali eredményt érhet el.
+
+## A javítási sorrend: az elsődleges feladatok (a 80/20-as szabály)
+
+Ha a weboldal elbukik a technikai ellenőrzéseken, a problémák a legtöbb esetben néhány ismétlődő okra vezethetők vissza. Ez a sorrend jelenti a leggyorsabb utat a mérhető javuláshoz.
+
+### 1. Biztosítsa a tartalom láthatóságát JavaScript nélkül is
+
+Az AI-robotok gyakran nem futtatják le a teljes JavaScript renderelési folyamatot. Ha a fő tartalom csak egy front-end keretrendszer betöltése után jelenik meg, az AI-rendszerek gyakorlatilag egy üres oldalt látnak.
+
+Üzleti szempontból ez olyan, mintha egy üzletet nyitna, ahol a polcok csak akkor töltődnek meg áruval, miután a vevő már belépett. Az AI-keresők viszont nem várakoznak: ha nem látják azonnal a kínálatot, továbbállnak, az ön cége pedig láthatatlan marad számukra.
+
+**Mit tegyen ön?**
+
+* Kérje meg a fejlesztőjét, hogy ellenőrizze: a fő cikk vagy szolgáltatásoldal szövege már a kezdeti HTML-válaszban szerepel (SSR/SSG/hibrid megoldások), és nem csak utólag töltődik be.
+* Végezzen el egy gyors ellenőrzést saját maga: tiltsa le a JavaScriptet a böngészőjében, és frissítse az oldalt. Ha a fő tartalom eltűnik a képernyőről, kezelje ezt maximális prioritású technikai hibaként.
+
+### 2. Előbb a szerver válaszidejét tegye rendbe, csak utána a weboldal megjelenését
+
+Ha a szerver lassan válaszol, minden más beavatkozás hatástalan marad.
+
+Az AI-alapú adatkinyerés szempontjából a Time to First Byte (TTFB) mutatóra vonatkozó elvárások egyértelműek:
+
+* **Ideális esetben:** 200 ezredmásodperc alatt.
+* **Elfogadható:** 500 ezredmásodperc alatt.
+* **Problémás:** 800 ezredmásodperc felett.
+
+**Gyakorlati lépések a megoldáshoz**
+
+* Ha olcsó vagy osztott tárhelyet használ, és a weblap akkor is lassú, amikor nincs terhelés alatt, a szerverváltás hozhatja a leggyorsabb eredményt.
+* Alkalmazzon fejlett gyorsítótárazást (caching), CDN hálózatot, és csökkentse az erőforrás-igényes adatbázis-lekérdezések számát az oldal betöltésekor.
+
+### 3. AI-rendszerek: A kulcsfontosságú mutatók rangsorolása
+
+Kifejezetten az AI-alapú adatkinyerés szempontjából a rangsor egyértelmű: első helyen az **LCP** áll, ezt követi az **INP**, végül pedig a **CLS**.
+
+**Gyakorlati lépések a megoldáshoz**
+
+* **Ha az LCP értéke gyenge:** Könnyítse meg az oldal betöltését: faragja le a hatalmas nyitóképek és slidereket, takarítsa ki a felesleges kódokat, és javítsa a szerver válaszidejét.
+* **Ha az INP értéke gyenge:** Mérsékelje a böngészőt terhelő folyamatokat — felesleges bővítmények, chat ablakok, túl sok kódot futtató címkekezelők vagy nehézkes keretrendszerek a tartalomoldalakon.
+* **Ha a CLS értéke gyenge:** Foglaljon előre helyet a képeknek, hirdetéseknek és beágyazott tartalmaknak, hogy az oldal ne ugráljon a vizuális elemek betöltése közben.
+
+## Hogyan mérje az eredményeket hitelesen?
+
+Hagyatkozzon a valós forgalomból származó adatokra a hibák azonosításakor, és használjon diagnosztikai szoftvereket a hiba pontos okának megtalálásához.
+
+A Google iránymutatása szerint a Core Web Vitals mutatókat a leghatékonyabban a terepen, azaz valós felhasználók adatai alapján lehet mérni. A szimulált tesztek, mint amilyeneket a Lighthouse végez, a technikai okok mélyebb feltárására valók.
+
+**Egyszerű folyamat a méréshez:**
+
+1. **Értékelés:** Használja a Search Console jelentéseit és a PageSpeed Insights-ot a jelenlegi állapot felméréséhez.
+2. **Hibafeltárás:** Elemezzen technikai mérőeszközökkel (Lighthouse, DevTools) a hiba pontos forrásának megtalálásához.
+3. **Monitorozás:** Figyelje az eredményeket folyamatosan, hogy elkerülje a teljesítmény későbbi visszaesését.
+
+A javítás után a Search Console egy 28 napos időszak alatt figyeli az érintett oldalakat, hogy igazolja: a technikai hiba valóban megszűnt, és az eredmény tartós maradt.
+
+## Összegezve: A technikai minimum alapfeltétel, nem versenyelőny
+
+A rendelkezésre álló adatok egyértelműen egy minimumelváráson alapuló működést igazolnak: a Core Web Vitals határértékeken túli további csiszolgatása nem javítja megbízhatóan az AI-eredményekbe való bekerülést, viszont a kritikus hibák súlyosan gátolják azt.
+
+A Core Web Vitals egyfajta technikai belépő az AI-keresések világába. A súlyos hiányosságok – különösen az extrém lassú betöltési idők, valamint a tartalom megjelenítéséhez kizárólag JavaScriptre támaszkodó oldalak – drasztikusan csökkentik az esélyét annak, hogy az AI-rendszerek hivatkozzanak az ön weblapjára.
+
+Amint a mutatói elérik az elfogadható szintet, a százalékok további hajszolása már nincs mérhető pozitív hatással a láthatóságra. A gyakorlati prioritás tehát az extrém hibák felszámolása, nem pedig a már megfelelő értékek végtelen javítgatása.
+
+Szeretné már ma elhárítani a technikai akadályokat? Ellenőrizze legfontosabb oldalát az ingyenes auditáló eszközünkkel:
+
+[**Kérem az ingyenes Core Web Vitals ellenőrzést!**](https://keresopartner.hu/cwv-audit/)
