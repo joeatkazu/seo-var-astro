@@ -180,6 +180,44 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
 }
 
+/* Blog Table of Contents */
+.blog-toc {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-left: 3px solid hsl(var(--primary));
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.blog-toc__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted-foreground));
+  margin: 0 0 0.75rem 0;
+}
+.blog-toc ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  list-style: decimal;
+}
+.blog-toc li {
+  font-size: 0.9375rem;
+  color: hsl(var(--foreground));
+}
+.blog-toc a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+}
+.blog-toc a:hover {
+  text-decoration: underline;
+}
+
 .gradient-border::before {
   content: '';
   position: absolute;

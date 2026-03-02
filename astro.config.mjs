@@ -6,12 +6,13 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
+import { rehypeToc } from './src/lib/rehype-toc.mjs';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://keresopartner.hu',
   adapter: vercel(),
-  integrations: [react(), mdx(), sitemap()],
+  integrations: [react(), mdx({ rehypePlugins: [rehypeToc] }), sitemap()],
 
   vite: {
     plugins: [tailwindcss()],
