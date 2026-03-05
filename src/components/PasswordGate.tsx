@@ -1,11 +1,18 @@
 import { useState } from 'react';
 
 interface PasswordGateProps {
-  children: React.ReactNode;
   correctPassword: string;
+  videoSrc: string;
+  videoTitle: string;
+  videoDescription: string;
 }
 
-export default function PasswordGate({ children, correctPassword }: PasswordGateProps) {
+export default function PasswordGate({ 
+  correctPassword, 
+  videoSrc, 
+  videoTitle,
+  videoDescription 
+}: PasswordGateProps) {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState('');
@@ -21,7 +28,44 @@ export default function PasswordGate({ children, correctPassword }: PasswordGate
   };
 
   if (isAuthenticated) {
-    return <>{children}</>;
+    return (
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              {videoTitle}
+            </h1>
+            <p className="text-gray-600 mb-6">
+              {videoDescription}
+            </p>
+            
+            <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden">
+              <video
+                controls
+                className="w-full h-full"
+                preload="metadata"
+              >
+                <source src={videoSrc} type="video/mp4" />
+                A bongeszo nem tamogatja a video lejatszast.
+              </video>
+            </div>
+            
+            <div className="mt-6 flex justify-between items-center">
+              <p className="text-sm text-gray-500">
+                Video meret: ~10 MB | Formátum: MP4
+              </p>
+              <a 
+                href={videoSrc}
+                download 
+                className="text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Letoltes
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
