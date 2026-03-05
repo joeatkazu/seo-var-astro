@@ -12,7 +12,9 @@ import { rehypeToc } from './src/lib/rehype-toc.mjs';
 export default defineConfig({
   site: 'https://keresopartner.hu',
   adapter: vercel(),
-  integrations: [react(), mdx({ rehypePlugins: [rehypeToc] }), sitemap()],
+  integrations: [react(), mdx({ rehypePlugins: [rehypeToc] }), sitemap({
+    filter: (page) => !page.includes('/davidgerincklinika')
+  })],
 
   vite: {
     plugins: [tailwindcss()],
